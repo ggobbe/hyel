@@ -1,0 +1,241 @@
+using System;
+using Server.Targeting;
+using Server.Network;
+using Server.Misc;
+using Server.Items;
+
+namespace Server.Spells.Druid
+{
+   public class StoneCircleSpell : DruidicSpell
+   {
+   	private InternalItem m_Circlea;
+   	
+      private static SpellInfo m_Info = new SpellInfo(
+            "Stone Circle", "En Ess Ohm",
+            SpellCircle.Sixth,
+            266,
+            9040,
+            false,
+            Reagent.SpringWater
+         );
+
+      public override double CastDelay{ get{ return 3.0; } }
+      public override double RequiredSkill{ get{ return 50.0; } }
+      public override int RequiredMana{ get{ return 30; } }
+
+      public StoneCircleSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
+      {
+      }
+
+     public override void OnCast()
+      {
+         Caster.Target = new InternalTarget( this );
+      }
+
+
+    
+
+
+           public void Target( IPoint3D p )
+      {
+         if ( !Caster.CanSee( p ) )
+         {
+            Caster.SendLocalizedMessage( 500237 ); // Target can not be seen.
+         }
+         else if ( SpellHelper.CheckTown( p, Caster ) && CheckSequence() )
+         {
+            SpellHelper.Turn( Caster, p );
+
+            SpellHelper.GetSurfaceTop( ref p );
+
+
+            Effects.PlaySound( p, Caster.Map, 0x222 );
+
+            
+               Point3D loc = new Point3D( p.X, p.Y, p.Z );
+               	int mushx;
+				int mushy;
+				int mushz;
+				
+
+              	InternalItem firstGatea = new InternalItem( Caster.Location, Caster.Map, Caster );
+				mushx=loc.X;
+				mushy=loc.Y;
+				mushz=loc.Z;
+         
+				firstGatea.ItemID=0x1772;
+				Point3D mushxyz = new Point3D(mushx,mushy,mushz);
+				firstGatea.MoveToWorld( mushxyz, Caster.Map );
+			InternalItem firstGatec = new InternalItem( Caster.Location, Caster.Map, Caster );
+				mushx=loc.X-1;
+				firstGatec.ItemID=0x1773;
+				mushy=loc.Y+1;
+				mushz=loc.Z;
+				Point3D mushxyzb = new Point3D(mushx,mushy,mushz);
+InternalItem firstGated = new InternalItem( Caster.Location, Caster.Map, Caster );
+				firstGated.ItemID=0x1773;
+				mushx=loc.X;
+				mushy=loc.Y+1;
+				mushz=loc.Z;
+				Point3D mushxyzc = new Point3D(mushx,mushy,mushz);
+				firstGated.MoveToWorld( mushxyzc, Caster.Map );
+InternalItem firstGatee = new InternalItem( Caster.Location, Caster.Map, Caster );
+				mushx=loc.X+1;
+				firstGatee.ItemID=0x1772;
+				mushy=loc.Y+1;
+				mushz=loc.Z;
+				Point3D mushxyzd = new Point3D(mushx,mushy,mushz);
+				firstGatee.MoveToWorld( mushxyzd, Caster.Map );
+InternalItem firstGatef = new InternalItem( Caster.Location, Caster.Map, Caster );
+				firstGatef.ItemID=0x1772;
+				mushx=loc.X+2;
+				mushy=loc.Y;
+				mushz=loc.Z;
+				Point3D mushxyze = new Point3D(mushx,mushy,mushz);
+				firstGatef.MoveToWorld( mushxyze, Caster.Map );
+InternalItem firstGateg = new InternalItem( Caster.Location, Caster.Map, Caster );
+				mushx=loc.X+1;
+				firstGateg.ItemID=0x1772;
+				mushy=loc.Y-1;
+				mushz=loc.Z;
+				Point3D mushxyzf = new Point3D(mushx,mushy,mushz);
+				firstGateg.MoveToWorld( mushxyzf, Caster.Map );
+
+            	
+            	
+            	
+
+              
+            }
+         
+
+         FinishSequence();
+      }
+    
+  [DispellableField]
+      private class InternalItem : Item
+      {
+         private Timer m_Timer;
+         private DateTime m_End;
+
+         public override bool BlocksFit{ get{ return true; } }
+
+         public InternalItem( Point3D loc, Map map, Mobile caster ) : base( 0x1356 )
+         {
+            Visible = false;
+            Movable = false;
+
+            MoveToWorld( loc, map );
+
+            if ( caster.InLOS( this ) )
+               Visible = true;
+            else
+               Delete();
+
+            if ( Deleted )
+               return;
+
+            m_Timer = new InternalTimer( this, TimeSpan.FromSeconds( 30.0 ) );
+            m_Timer.Start();
+
+            m_End = DateTime.Now + TimeSpan.FromSeconds( 30.0 );
+         }
+
+         public InternalItem( Serial serial ) : base( serial )
+         {
+         }
+	public override bool OnMoveOver( Mobile m )
+{
+m.SendMessage("La magie des pierre vous préserve.");
+return false;
+	
+	
+}
+         public override void Serialize( GenericWriter writer )
+         {
+            base.Serialize( writer );
+
+            writer.Write( (int) 1 ); // version
+
+            writer.Write( m_End - DateTime.Now );
+         }
+
+         public override void Deserialize( GenericReader reader )
+         {
+            base.Deserialize( reader );
+
+            int version = reader.ReadInt();
+
+            switch ( version )
+            {
+               case 1:
+               {
+                  TimeSpan duration = reader.ReadTimeSpan();
+
+                  m_Timer = new InternalTimer( this, duration );
+                  m_Timer.Start();
+
+                  m_End = DateTime.Now + duration;
+
+                  break;
+               }
+               case 0:
+               {
+                  TimeSpan duration = TimeSpan.FromSeconds( 10.0 );
+
+                  m_Timer = new InternalTimer( this, duration );
+                  m_Timer.Start();
+
+                  m_End = DateTime.Now + duration;
+
+                  break;
+               }
+            }
+         }
+
+         public override void OnAfterDelete()
+         {
+            base.OnAfterDelete();
+
+            if ( m_Timer != null )
+               m_Timer.Stop();
+         }
+
+         private class InternalTimer : Timer
+         {
+            private InternalItem m_Item;
+
+            public InternalTimer( InternalItem item, TimeSpan duration ) : base( duration )
+            {
+               m_Item = item;
+            }
+
+            protected override void OnTick()
+            {
+               m_Item.Delete();
+            }
+         }
+      }
+		 private class InternalTarget : Target
+      {
+         private StoneCircleSpell m_Owner;
+
+         public InternalTarget( StoneCircleSpell owner ) : base( 12, true, TargetFlags.None )
+         {
+            m_Owner = owner;
+         }
+
+         protected override void OnTarget( Mobile from, object o )
+         {
+            if ( o is IPoint3D )
+               m_Owner.Target( (IPoint3D)o );
+         }
+
+         protected override void OnTargetFinish( Mobile from )
+         {
+            m_Owner.FinishSequence();
+         }
+      }
+     
+   }
+}

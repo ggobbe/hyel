@@ -1,0 +1,59 @@
+using System;
+using Server.Items;
+using Server.Mobiles;
+
+namespace Server.Items
+{
+	public class PretreBook : Item
+	{
+		[Constructable]
+		public PretreBook() : base( 0xFBE )
+		{
+			Name = "Comment lire le livre du pretre";
+			Weight = 1.0;
+		}
+
+		public PretreBook( Serial serial ) : base( serial )
+		{
+		}
+
+		public override void Serialize( GenericWriter writer )
+		{
+			base.Serialize( writer );
+
+			writer.Write( (int) 0 ); // version
+		}
+
+		public override void Deserialize( GenericReader reader )
+		{
+			base.Deserialize( reader );
+
+			int version = reader.ReadInt();
+		}
+
+		public override void OnDoubleClick( Mobile from )
+		{
+			PlayerMobile pm = from as PlayerMobile;
+
+			if ( !IsChildOf( from.Backpack ) )
+			{
+				from.SendLocalizedMessage( 1042001 ); // That must be in your pack for you to use it.
+			}
+			else if ( pm.Pretre )
+			{
+				pm.SendMessage( "Vous avez deja appris" );
+			}
+			else if ( pm.Druidisme )
+			{
+				pm.SendMessage( "Vous etes Druide vous ne pouvez pas apprendre" );
+			}
+			else
+			{
+				pm.Pretre = true;
+				pm.Mage = true;				
+				pm.SendMessage( "Vous avez appris a lire le livre de la Foi" );
+				Delete();
+			}
+		}
+	}
+}

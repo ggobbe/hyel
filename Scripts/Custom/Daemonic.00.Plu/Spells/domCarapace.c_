@@ -1,0 +1,19 @@
+using System;
+using Server;
+using Server.Mobiles;
+using Server.Items;
+
+namespace Server.Spells.Necromancy2
+{
+	public class PlayerEvent
+	{
+		public delegate void OnWeaponHit2( Mobile attacker, Mobile defender, int damage, WeaponAbility a );
+		public static event OnWeaponHit2 HitByWeapon2;
+
+		public static void InvokeHitByWeapon2( Mobile attacker, Mobile defender, int damage, WeaponAbility a )
+		{
+			if ( HitByWeapon2 != null )
+				HitByWeapon2( attacker, defender, damage, a );
+		}
+	}
+}

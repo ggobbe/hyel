@@ -1,0 +1,455 @@
+using System;
+using System.Collections;
+using Server;
+using Server.Items;
+using Server.Network;
+using Server.Spells;
+using Server.Spells.Druid;
+using Server.Prompts;
+
+namespace Server.Gumps
+{
+   public class DruidicSpellbookGump : Gump
+   {
+      private DruidicSpellbook m_Book;
+
+      int gth = 0x903;
+      private void AddBackground()
+      {
+         AddPage( 0 );
+
+         AddImage( 100, 10, 0x89B, 0 );
+      //   AddImage( 255, 10, 0x8AD, 0x48B );
+
+       
+
+        // AddLabel( 140, 45, gth, "Ohm - Earth" );
+        // AddLabel( 140, 60, gth, "Ess - Air" );
+        // AddLabel( 140, 75, gth, "Crur - Fire" );
+        // AddLabel( 140, 90, gth, "Sepa - Water" );
+        // AddLabel( 140, 110, gth, "Kes - One" );
+        // AddLabel( 140, 125, gth, "Sec - Whole" );
+        // AddLabel( 140, 140, gth, "En  - Call" );
+        // AddLabel( 140, 155, gth, "Vauk - Banish" );
+        // AddLabel( 140, 170, gth, "Tia - Befoul" );
+        // AddLabel( 140, 185, gth, "Ante - Cleanse" );
+
+      }
+
+      public static bool HasSpell( Mobile from, int spellID )
+      {
+         Spellbook book = Spellbook.Find( from, spellID );
+         return ( book != null && book.HasSpell( spellID ) );
+      }
+
+
+      public DruidicSpellbookGump( Mobile from, DruidicSpellbook book ) : base( 150, 200 )
+      {
+      	
+         m_Book = book;
+         AddBackground();
+AddPage( 1 );
+      	  AddLabel( 150, 17, gth, "Natural Magic" );
+         int sbtn = 0x93A;
+         int dby = 40;
+      	int dbpy = 40;;
+			AddButton( 396, 14, 0x89E, 0x89E, 17, GumpButtonType.Page, 2 );
+	
+         if (HasSpell( from, 316) )
+         {
+         	AddLabel( 145, dbpy, gth, "Lumiere volante" );
+            AddButton( 125, dbpy + 3, sbtn, sbtn, 16, GumpButtonType.Reply, 1 );
+            dby = dby + 20;
+         }
+         if (HasSpell( from, 302) )
+         {
+         	AddLabel( 145, dby, gth, "Forces de la terre" );
+            AddButton( 125, dby + 3, sbtn, sbtn, 2, GumpButtonType.Reply, 1 );
+            dby = dby + 20;
+        
+            }
+         if (HasSpell( from, 303) )
+         {
+            AddLabel( 145, dby, gth, "Invocation de meute" );
+            AddButton( 125, dby + 3, sbtn, sbtn, 3, GumpButtonType.Reply, 1 );
+            dby = dby + 20;
+         }
+         if (HasSpell( from, 304) )
+         {
+            AddLabel( 145, dby, gth, "Printemps de vie" );
+            AddButton( 125, dby + 3, sbtn, sbtn, 4, GumpButtonType.Reply, 1 );
+            dby = dby + 20;
+         }
+         if (HasSpell( from, 305) )
+         {
+            AddLabel( 145, dby, gth, "Enchevetrement" );
+            AddButton( 125, dby + 3, sbtn, sbtn, 5, GumpButtonType.Reply, 1 );
+            dby = dby + 20;
+         }
+         if (HasSpell( from, 306) )
+         {
+            AddLabel( 145, dby, gth, "Dissimulation" );
+            AddButton( 125, dby + 3, sbtn, sbtn, 6, GumpButtonType.Reply, 1 );
+            dby = dby + 20;
+         }
+         if (HasSpell( from, 307) )
+         {
+            AddLabel( 145, dby, gth, "Essaim d'abeilles" );
+            AddButton( 125, dby + 3, sbtn, sbtn, 7, GumpButtonType.Reply, 1 );
+            dby = dby + 20;
+         }
+         if (HasSpell( from, 308) )
+         {
+            AddLabel( 145, dby, gth, "Eruption Volcanique" );
+            AddButton( 125, dby + 3, sbtn, sbtn, 8, GumpButtonType.Reply, 1 );
+         }
+         if (HasSpell( from, 309) )
+         {
+            AddLabel( 315, dbpy, gth, "Esprit de l'arbre" );
+            AddButton( 295, dbpy + 3, sbtn, sbtn, 9, GumpButtonType.Reply, 1 );
+            dbpy = dbpy + 20;
+         }
+         if (HasSpell( from, 310) )
+         {
+            AddLabel( 315, dbpy, gth, "Cercle de pierre" );
+            AddButton( 295, dbpy + 3, sbtn, sbtn, 10, GumpButtonType.Reply, 1 );
+            dbpy = dbpy + 20;
+         }
+         if (HasSpell( from, 311) )
+         {
+            AddLabel( 315, dbpy, gth, "Clairiere enchantée" );
+            AddButton( 295, dbpy + 3, sbtn, sbtn, 11, GumpButtonType.Reply, 1 );
+            dbpy = dbpy + 20;
+         }
+         if (HasSpell( from, 312) )
+         {
+         	AddLabel( 315, dbpy, gth, "Leure de pierre" );
+            AddButton( 295, dbpy + 3, sbtn, sbtn, 12, GumpButtonType.Reply, 1 );
+            dbpy = dbpy + 20;
+         }
+         if (HasSpell( from, 313) )
+         {
+            AddLabel( 315, dbpy, gth, "Passage de la nature" );
+            AddButton( 295, dbpy + 3, sbtn, sbtn, 13, GumpButtonType.Reply, 1 );
+            dbpy = dbpy + 20;
+         }
+         if (HasSpell( from, 314) )
+         {
+            AddLabel( 315, dbpy, gth, "Portail de champignons" );
+            AddButton( 295, dbpy + 3, sbtn, sbtn, 14, GumpButtonType.Reply, 1 );
+            dbpy = dbpy + 20;
+         }
+         if (HasSpell( from, 315) )
+         {
+            AddLabel( 315, dbpy, gth, "Engrais de vie" );
+            AddButton( 295, dbpy + 3, sbtn, sbtn, 15, GumpButtonType.Reply, 1 );
+            dbpy = dbpy + 20;
+         }
+         if (HasSpell( from, 301) )
+         {
+            AddLabel( 315, dby, gth, "Barriere de la nature" );
+            AddButton( 295, dby + 3, sbtn, sbtn, 1, GumpButtonType.Reply, 1 );
+            
+         }
+
+AddPage( 2 );
+      	 
+			AddButton( 396, 14, 0x89E, 0x89E, 18, GumpButtonType.Page, 3 );
+			AddButton( 123, 15, 0x89D, 0x89D, 19, GumpButtonType.Page, 1 );
+      	 AddLabel( 150, 37, gth, "Lumiere volante" );
+      		AddHtml( 130, 59, 123, 132, "Summone un petit esprit de lumiere qui eclaire le druide. Cet esprit n'a pas ou peu de skills de combat.", false, false );    	
+			AddLabel( 295, 37, gth, "Reagents:" );
+			AddLabel( 295, 57, gth, "Sulfurous Ash" );
+			AddLabel( 295, 77, gth, "Destroying Angel" );
+			AddLabel( 295, 167, gth, "Required Skill:  1" );
+      	AddLabel( 295, 187, gth, "Required Mana:  10" );
+      
+      	AddPage( 3 );
+      AddButton( 396, 14, 0x89E, 0x89E, 18, GumpButtonType.Page, 4 );
+			AddButton( 123, 15, 0x89D, 0x89D, 19, GumpButtonType.Page, 2 );
+      		  AddLabel( 150, 37, gth, "Forces de la terre" );
+      		AddHtml( 130, 59, 123, 132, "Augmente a la fois la force et l'intelligence du druide.", false, false );
+			AddLabel( 295, 37, gth, "Reagents:" );
+			AddLabel( 295, 57, gth, "Bloodmoss" );
+			AddLabel( 295, 77, gth, "Mandrake Root" );
+			AddLabel( 295, 97, gth, "Nightshade" );
+			AddLabel( 295, 167, gth, "Required Skill:  30" );
+      	AddLabel( 295, 187, gth, "Required Mana:  30" );
+      AddPage( 4 );
+      	 
+			AddButton( 396, 14, 0x89E, 0x89E, 18, GumpButtonType.Page, 5 );
+			AddButton( 123, 15, 0x89D, 0x89D, 19, GumpButtonType.Page, 3 );
+      	  AddLabel( 150, 37, gth, "Invocation de meute" );
+      		AddHtml( 130, 59, 123, 132, "Summone une meute de betes qui obeissent au druide . La puissnce augmente avec la skill.", false, false );
+			AddLabel( 295, 37, gth, "Reagents:" );
+			AddLabel( 295, 57, gth, "Bloodmoss" );
+			AddLabel( 295, 77, gth, "Black Pearl" );
+			AddLabel( 295, 97, gth, "Petrified Wood" );
+			AddLabel( 295, 167, gth, "Required Skill:  40" );
+      	AddLabel( 295, 187, gth, "Required Mana:  45" );
+      	AddPage( 5 );
+      	 
+			AddButton( 396, 14, 0x89E, 0x89E, 18, GumpButtonType.Page, 6 );
+			AddButton( 123, 15, 0x89D, 0x89D, 19, GumpButtonType.Page, 4 );
+      	 AddLabel( 150, 37, gth, "Printemps de vie" );
+      		AddHtml( 130, 59, 123, 132, "soin de masse.", false, false );
+			AddLabel( 295, 37, gth, "Reagents:" );
+			AddLabel( 295, 57, gth, "Spring Water" );
+			AddLabel( 295, 77, gth, "Spring Water" );
+			AddLabel( 295, 167, gth, "Required Skill:  40" );
+      	AddLabel( 295, 187, gth, "Required Mana:  40" );
+      	AddPage( 6 );
+      	 
+			AddButton( 396, 14, 0x89E, 0x89E, 18, GumpButtonType.Page, 7 );
+			AddButton( 123, 15, 0x89D, 0x89D, 19, GumpButtonType.Page, 5 );
+      	 AddLabel( 150, 37, gth, "Enchevetrement" );
+      		AddHtml( 130, 59, 123, 132, "Summone des racines qui enchevetrent la cible.", false, false );
+			AddLabel( 295, 37, gth, "Reagents:" );
+			AddLabel( 295, 57, gth, "Bloodmoss" );
+			AddLabel( 295, 77, gth, "Spring Water" );
+			AddLabel( 295, 97, gth, "Spiders Silk" );
+			AddLabel( 295, 167, gth, "Required Skill:  40" );
+      	AddLabel( 295, 187, gth, "Required Mana:  40" );
+      	AddPage( 7 );
+      	 
+			AddButton( 396, 14, 0x89E, 0x89E, 18, GumpButtonType.Page, 8 );
+			AddButton( 123, 15, 0x89D, 0x89D, 19, GumpButtonType.Page, 6 );
+      	  AddLabel( 150, 37, gth, "Dissimulation" );
+      		AddHtml( 130, 59, 123, 132, "tranforme le druide en arbre.", false, false );
+			AddLabel( 295, 37, gth, "Reagents:" );
+			AddLabel( 295, 57, gth, "Bloodmoss" );
+			AddLabel( 295, 77, gth, "Nightshade" );
+			AddLabel( 295, 167, gth, "Required Skill:  75" );
+      	AddLabel( 295, 187, gth, "Required Mana:  60" );
+      	AddPage( 8 );
+      	 
+			AddButton( 396, 14, 0x89E, 0x89E, 18, GumpButtonType.Page, 9 );
+			AddButton( 123, 15, 0x89D, 0x89D, 19, GumpButtonType.Page, 7 );
+      	  AddLabel( 150, 37, gth, "Essaim d'abeilles" );
+      		AddHtml( 130, 59, 123, 132, "Summone un essaim d'abeilles qui blessent la cible.", false, false );
+			AddLabel( 295, 37, gth, "Reagents:" );
+			AddLabel( 295, 57, gth, "Garlic" );
+			AddLabel( 295, 77, gth, "Nightshade" );
+			AddLabel( 295, 97, gth, "Destroying Angel" );
+			AddLabel( 295, 167, gth, "Required Skill:  85" );
+      	AddLabel( 295, 187, gth, "Required Mana:  70" );
+      	AddPage( 9 );
+      	 
+			AddButton( 396, 14, 0x89E, 0x89E, 18, GumpButtonType.Page, 10 );
+			AddButton( 123, 15, 0x89D, 0x89D, 19, GumpButtonType.Page, 8 );
+      AddLabel( 150, 37, gth, "Eruption Volcanique" );
+      		AddHtml( 130, 59, 123, 132, "De lave surgie et blesse tout alentour", false, false );
+			AddLabel( 295, 37, gth, "Reagents:" );
+			AddLabel( 295, 57, gth, "Sulfurous Ash" );
+			AddLabel( 295, 77, gth, "Destroying Angel" );
+			AddLabel( 295, 167, gth, "Required Skill:  98" );
+      	AddLabel( 295, 187, gth, "Required Mana:  85" );
+      	AddPage( 10 );
+      	 
+			AddButton( 396, 14, 0x89E, 0x89E, 18, GumpButtonType.Page, 11 );
+			AddButton( 123, 15, 0x89D, 0x89D, 19, GumpButtonType.Page, 9 );
+      	 AddLabel( 150, 37, gth, "Esprit de l'arbre" );
+      		AddHtml( 130, 59, 123, 132, "Summone un esprit de l'arbre qui obeit au druide.", false, false );
+			AddLabel( 295, 37, gth, "Reagents:" );
+			AddLabel( 295, 57, gth, "Bloodmoss" );
+			AddLabel( 295, 77, gth, "Black Pearl" );
+			AddLabel( 295, 97, gth, "Petrified Wood" );
+			AddLabel( 295, 167, gth, "Required Skill:  80" );
+      	AddLabel( 295, 187, gth, "Required Mana:  50" );
+      	AddPage( 11 );
+      	 
+			AddButton( 396, 14, 0x89E, 0x89E, 18, GumpButtonType.Page, 12 );
+			AddButton( 123, 15, 0x89D, 0x89D, 19, GumpButtonType.Page, 10 );
+      	  AddLabel( 150, 37, gth, "Cercle de pierre" );
+      		AddHtml( 130, 59, 123, 132, "Forme un infranchissable cercle de pierre, ideal pour coincer ses ennemis.", false, false );
+			AddLabel( 295, 37, gth, "Reagents:" );
+			AddLabel( 295, 57, gth, "Black Pearl" );
+			AddLabel( 295, 77, gth, "Ginseng" );
+			AddLabel( 295, 97, gth, "Spring Water" );
+			AddLabel( 295, 167, gth, "Required Skill:  60" );
+      	AddLabel( 295, 187, gth, "Required Mana:  45" );
+      	AddPage( 12 );
+      	 
+			AddButton( 396, 14, 0x89E, 0x89E, 18, GumpButtonType.Page, 13 );
+			AddButton( 123, 15, 0x89D, 0x89D, 19, GumpButtonType.Page, 11 );
+      	 AddLabel( 150, 37, gth, "Clairiere enchantée" );
+      		AddHtml( 130, 59, 123, 132, "Cree un cercle d'arbres donnant regeneration de vie et de mana pour les bons karmas.", false, false );
+			AddLabel( 295, 37, gth, "Reagents:" );
+			AddLabel( 295, 57, gth, "Petrified Wood" );
+			AddLabel( 295, 77, gth, "Mandrake Root" );
+			AddLabel( 295, 97, gth, "Spring Water" );
+			AddLabel( 295, 167, gth, "Required Skill:  95" );
+      	AddLabel( 295, 187, gth, "Required Mana:  60" );
+      	AddPage( 13 );
+      	 
+			AddButton( 396, 14, 0x89E, 0x89E, 18, GumpButtonType.Page, 14 );
+			AddButton( 123, 15, 0x89D, 0x89D, 19, GumpButtonType.Page, 12 );
+      		  AddLabel( 150, 37, gth, "Leure de pierre" );
+      		AddHtml( 130, 59, 123, 132, "Cree une pierre magique qui attire les animaux vers elle.", false, false );
+			AddLabel( 295, 37, gth, "Reagents:" );
+			AddLabel( 295, 57, gth, "Black Pearl" );
+			AddLabel( 295, 77, gth, "Spring Water" );
+			AddLabel( 295, 167, gth, "Required Skill:  15" );
+      	AddLabel( 295, 187, gth, "Required Mana:  30" );
+      	AddPage( 14 );
+      	 
+			AddButton( 396, 14, 0x89E, 0x89E, 18, GumpButtonType.Page, 15 );
+			AddButton( 123, 15, 0x89D, 0x89D, 19, GumpButtonType.Page, 13 );
+      	 AddLabel( 150, 37, gth, "Passage de la nature" );
+      		AddHtml( 130, 59, 123, 132, "Le recall des druides.", false, false );
+			AddLabel( 295, 37, gth, "Reagents:" );
+			AddLabel( 295, 57, gth, "Black Pearl" );
+			AddLabel( 295, 77, gth, "Bloodmoss" );
+			AddLabel( 295, 97, gth, "Mandrake Root" );
+			AddLabel( 295, 167, gth, "Required Skill:  15" );
+      	AddLabel( 295, 187, gth, "Required Mana:  10" );
+      	AddPage( 15 );
+      	 
+			AddButton( 396, 14, 0x89E, 0x89E, 18, GumpButtonType.Page, 16 );
+			AddButton( 123, 15, 0x89D, 0x89D, 19, GumpButtonType.Page, 14 );
+      	AddLabel( 150, 37, gth, "Portail de champignons" );
+      		AddHtml( 130, 59, 123, 132, "Portail druide.", false, false );
+			AddLabel( 295, 37, gth, "Reagents:" );
+			AddLabel( 295, 57, gth, "Black Pearl" );
+			AddLabel( 295, 77, gth, "Spring Water" );
+			AddLabel( 295, 97, gth, "Mandrake Root" );
+			AddLabel( 295, 167, gth, "Required Skill:  70" );
+      	AddLabel( 295, 187, gth, "Required Mana:  40" );
+      	AddPage( 16 );
+      	 
+			AddButton( 396, 14, 0x89E, 0x89E, 18, GumpButtonType.Page, 17 );
+			AddButton( 123, 15, 0x89D, 0x89D, 19, GumpButtonType.Page, 15 );
+      	  AddLabel( 150, 37, gth, "Engrais de vie" );
+      		AddHtml( 130, 59, 123, 132, "Crée une flaque de resurection, le fantome doit marcher dessus.", false, false );
+			AddLabel( 295, 37, gth, "Reagents:" );
+			AddLabel( 295, 57, gth, "Garlic" );
+			AddLabel( 295, 77, gth, "Ginseng" );
+			AddLabel( 295, 97, gth, "Spring Water" );
+			AddLabel( 295, 167, gth, "Required Skill:  89" );
+      	AddLabel( 295, 187, gth, "Required Mana:  55" );
+	AddPage( 17 );
+      	 
+
+			AddButton( 123, 15, 0x89D, 0x89D, 19, GumpButtonType.Page, 16 );
+			AddLabel( 150, 37, gth, "Barriere de la nature" );
+      		AddHtml( 130, 59, 123, 132, "Crée un mur de feuillages.", false, false );
+			AddLabel( 295, 37, gth, "Reagents:" );
+			AddLabel( 295, 57, gth, "Ginseng" );
+			AddLabel( 295, 77, gth, "Spring Water" );
+			AddLabel( 295, 167, gth, "Required Skill:  20" );
+      	AddLabel( 295, 187, gth, "Required Mana:  15" );
+      }
+
+
+
+
+
+      public override void OnResponse( NetState state, RelayInfo info )
+      {
+         Mobile from = state.Mobile;
+         switch ( info.ButtonID )
+         {
+            case 0:
+            {
+               break;
+            }
+            case 1:
+            {
+               new SheildOfEarthSpell( from, null ).Cast();
+               break;
+            }
+            case 2:
+            {
+               new HollowReedSpell( from, null ).Cast();
+               break;
+            }
+            case 3:
+            {
+               new PackOfBeastSpell( from, null ).Cast();
+               break;
+            }
+            case 4:
+            {
+               new SpringOfLifeSpell( from, null ).Cast();
+               break;
+            }
+            case 5:
+            {
+               new GraspingRootsSpell( from, null ).Cast();
+               break;
+            }
+            case 6:
+            {
+               new BlendWithForestSpell( from, null ).Cast();
+               break;
+            }
+            case 7:
+            {
+               new SwarmOfInsectsSpell( from, null ).Cast();
+               break;
+            }
+            case 8:
+            {
+               new VolcanicEruptionSpell( from, null ).Cast();
+               break;
+            }
+              case 9:
+            {
+               new TreefellowSpell( from, null ).Cast();
+               break;
+            }
+            case 10:
+            {
+               new StoneCircleSpell( from, null ).Cast();
+               break;
+            }
+               case 11:
+            {
+               new EnchantedGroveSpell( from, null ).Cast();
+               break;
+            }
+               case 12:
+            {
+               new LureStoneSpell( from, null ).Cast();
+               break;
+            }
+               case 13:
+            {
+              new NaturesPassageSpell( from, null ).Cast();
+               break;
+            }
+               case 14:
+            {
+              new MushroomGatewaySpell( from, null ).Cast();
+               break;
+            }
+               case 15:
+            {
+               new RestorativeSoilSpell( from, null ).Cast();
+               break;
+            }
+               case 16:
+            {
+               new FireflySpell( from, null ).Cast();
+               break;
+            }
+                case 17:
+            {
+              from.PlaySound(0x55);
+              break;
+            }
+                case 18:
+            {
+             from.PlaySound(0x55);
+               break;
+            }
+                case 19:
+            {
+               from.PlaySound(0x55);
+               break;
+            }
+
+         }
+      }
+   }
+}

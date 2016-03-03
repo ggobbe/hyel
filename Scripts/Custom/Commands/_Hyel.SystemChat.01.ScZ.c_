@@ -1,0 +1,364 @@
+/**
+ * Scriptiz@19/11/07 : Script du chat joueur
+ * 
+ * .possess : prend controle de la cible par le GM
+ * .unpossess : libère le mobile de l'emprise du GM
+ **/
+using System;
+using System.Collections;
+using Server.Network;
+using Server;
+using Server.HuePickers;
+using Server.Mobiles;
+
+namespace Server.Commands
+{
+    public class SystemChat
+    {
+        public static void Initialize()
+        {
+            // parle
+            CommandSystem.Register("d", AccessLevel.Player, new CommandEventHandler(dMessage_OnCommand));
+            CommandSystem.Register("rp", AccessLevel.Player, new CommandEventHandler(rpMessage_OnCommand));
+            CommandSystem.Register("dinfo", AccessLevel.Administrator, new CommandEventHandler(dInfoMessage_OnCommand));
+            //CommandSystem.Register("c", AccessLevel.Counselor, new CommandEventHandler(CMessage_OnCommand));
+
+            // ouvre
+            CommandSystem.Register("dOpen", AccessLevel.Player, new CommandEventHandler(dOpenMessage_OnCommand));
+            CommandSystem.Register("rpOpen", AccessLevel.Player, new CommandEventHandler(rpOpenMessage_OnCommand));
+            CommandSystem.Register("dInfoOpen", AccessLevel.Administrator, new CommandEventHandler(dInfoOpenMessage_OnCommand));
+            //CommandSystem.Register("cOpen", AccessLevel.Counselor, new CommandEventHandler(COpenMessage_OnCommand));
+
+            //ferme
+            CommandSystem.Register("dClose", AccessLevel.Player, new CommandEventHandler(dCloseMessage_OnCommand));
+            CommandSystem.Register("rpClose", AccessLevel.Player, new CommandEventHandler(rpCloseMessage_OnCommand));
+            CommandSystem.Register("dInfoClose", AccessLevel.Administrator, new CommandEventHandler(dInfoCloseMessage_OnCommand));
+            //CommandSystem.Register("cClose", AccessLevel.Counselor, new CommandEventHandler(CCloseMessage_OnCommand));
+        }
+
+        [Usage("d + <texte>")]
+        [Description("Envoyer un message sur le Channel HRP")]
+        public static void dMessage_OnCommand(CommandEventArgs e)
+        {
+            Mobile somemobile = e.Mobile;
+            PlayerMobile from = somemobile as PlayerMobile;
+            if (from.ChanCH == CCCH.Ban)
+            {
+                from.SendMessage("Vous avez été banni du Channel HRP.");
+            }
+            else
+            {
+                if (from.ChanCH == CCCH.Close)
+                {
+                    from.SendMessage("Votre Channel HRP est Fermé");
+                }
+                else
+                {
+                    if (from.AccessLevel >= AccessLevel.Counselor)
+                    {
+                        BroadcastMessage(AccessLevel.Player, 43, String.Format("{0}: {1}", e.Mobile.Name, e.ArgString), 0);
+                    }
+                    else
+                    {
+                        BroadcastMessage(AccessLevel.Player, 253, String.Format("{0}: {1}", e.Mobile.Name, e.ArgString), 0);
+                    }
+
+                }
+
+            }
+        }
+
+        [Usage("rp + <texte>")]
+        [Description("Envoyer un message sur le Chanel RP")]
+        public static void rpMessage_OnCommand(CommandEventArgs e)
+        {
+            Mobile somemobile = e.Mobile;
+            PlayerMobile from = somemobile as PlayerMobile;
+            if (from.ChanCR == CCCR.Ban)
+            {
+                from.SendMessage("Vous avez été banni du Channel RP.");
+            }
+            else
+            {
+                if (from.ChanCR == CCCR.Close)
+                {
+                    from.SendMessage("Votre Channel RP est Fermé");
+                }
+                else
+                {
+                    if (from.AccessLevel >= AccessLevel.GameMaster)
+                    {
+                        BroadcastMessage(AccessLevel.Player, 88, String.Format("[RP] {0}: {1}", e.Mobile.Name, e.ArgString), 1);
+                    }
+                    else
+                    {
+                        BroadcastMessage(AccessLevel.Player, 1001, String.Format("[RP] {0}: {1}", e.Mobile.Name, e.ArgString), 1);
+                    }
+                }
+            }
+        }
+        [Usage("dinfo + text")]
+        [Description("Envoyer un message sur le Chanel annonce")]
+        public static void dInfoMessage_OnCommand(CommandEventArgs e)
+        {
+            Mobile somemobile = e.Mobile;
+            PlayerMobile from = somemobile as PlayerMobile;
+
+            if (from.ChanInfo == CCCINFO.Ban)
+            {
+                from.SendMessage("Vous avez été banni du Channel annonce.");
+            }
+            else
+            {
+                if (from.ChanInfo == CCCINFO.Close)
+                {
+                    from.SendMessage("Votre Channel annonce est Fermé");
+                }
+                else
+                {
+                    BroadcastMessage(AccessLevel.Player, 103, String.Format("[Annonce] {0}: {1}", e.Mobile.Name, e.ArgString), 2);
+                }
+            }
+        }
+
+        /*
+        [Usage("c + text")]
+        [Description("Envoyer un message sur le Chanel staff")]
+        public static void CMessage_OnCommand(CommandEventArgs e)
+        {
+            Mobile somemobile = e.Mobile;
+            PlayerMobile from = somemobile as PlayerMobile;
+            if (from.ChanStaff == CCC.Ban)
+            {
+                from.SendMessage("Vous avez été banni du Channel Staff.");
+            }
+            else
+            {
+                if (from.ChanStaff == CCC.Close)
+                {
+                    from.SendMessage("Votre Channel Staff est Fermé");
+                }
+                else
+                {
+                    BroadcastMessage(AccessLevel.Counselor, 173, String.Format("[Chanel staff] {0}: {1}", e.Mobile.Name, e.ArgString), 3);
+                }
+
+            }
+
+
+        }
+         */
+
+        //ouvre les channel
+        [Usage("dOpen")]
+        [Description("Ouvre le Channel HRP")]
+        public static void dOpenMessage_OnCommand(CommandEventArgs e)
+        {
+            Mobile somemobile = e.Mobile;
+            PlayerMobile from = somemobile as PlayerMobile;
+            // Scriptiz[   (ajout de l'impossibilité d'ouvrir si banni)
+            if (from.ChanCH == CCCH.Ban)
+            {
+                from.SendMessage(1000, "Vous êtes banni du chan HRP !");
+            }
+            else
+            {
+                from.ChanCH = CCCH.Open;
+                from.SendMessage(1000, "Channel HRP Ouvert");
+            }
+            // ]Scriptiz
+        }
+        [Usage("rpOpen")]
+        [Description("Ouvre le Channel RP")]
+        public static void rpOpenMessage_OnCommand(CommandEventArgs e)
+        {
+            Mobile somemobile = e.Mobile;
+            PlayerMobile from = somemobile as PlayerMobile;
+            // Scriptiz[   (ajout de l'impossibilité d'ouvrir si banni)
+            if (from.ChanCR == CCCR.Ban)
+            {
+                from.SendMessage(1000, "Vous êtes banni du chan RP !");
+            }
+            else
+            {
+                from.ChanCR = CCCR.Open;
+                from.SendMessage(1000, "Channel RP Ouvert");
+            }
+            // ]Scriptiz
+        }
+        [Usage("dInfoOpen")]
+        [Description("Ouvre le Channel annonce")]
+        public static void dInfoOpenMessage_OnCommand(CommandEventArgs e)
+        {
+            Mobile somemobile = e.Mobile;
+            PlayerMobile from = somemobile as PlayerMobile;
+            // Scriptiz[   (ajout de l'impossibilité d'ouvrir si banni)
+            if (from.ChanInfo == CCCINFO.Ban)
+            {
+                from.SendMessage("Vous êtes banni du chan Info !");
+            }
+            else
+            {
+                from.ChanInfo = CCCINFO.Open;
+                from.SendMessage(1000, "Channel Info Ouvert");
+            }
+            // ]Scriptiz
+        }
+
+        /*
+        [Usage("cOpen")]
+        [Description("Ouvre le Channel Staff")]
+        public static void COpenMessage_OnCommand(CommandEventArgs e)
+        {
+            Mobile somemobile = e.Mobile;
+            PlayerMobile from = somemobile as PlayerMobile;
+            // Scriptiz[   (ajout de l'impossibilité d'ouvrir si banni)
+            if (from.ChanStaff == CCC.Ban)
+            {
+                from.SendMessage("Vous êtes banni du chan Staff !");
+            }
+            else
+            {
+                from.ChanStaff = CCC.Open;
+                from.SendMessage(1000, "Channel Staff Ouvert");
+            }
+            // ]Scriptiz
+        }
+         */
+
+        //ferme les channel
+        [Usage("dClose")]
+        [Description("Ferme le Channel HRP")]
+        public static void dCloseMessage_OnCommand(CommandEventArgs e)
+        {
+            Mobile somemobile = e.Mobile;
+            PlayerMobile from = somemobile as PlayerMobile;
+            // Scriptiz[   (ajout de l'impossibilité d'ouvrir si banni)
+            if (from.ChanCH == CCCH.Ban)
+            {
+                from.SendMessage("Vous êtes banni du chan HRP !");
+            }
+            else
+            {
+                from.ChanCH = CCCH.Close;
+                from.SendMessage(1000, "Channel HRP Fermé");
+            }
+            // ]Scriptiz
+        }
+        [Usage("rpClose")]
+        [Description("Ferme le Channel RP")]
+        public static void rpCloseMessage_OnCommand(CommandEventArgs e)
+        {
+            Mobile somemobile = e.Mobile;
+            PlayerMobile from = somemobile as PlayerMobile;
+            // Scriptiz[   (ajout de l'impossibilité d'ouvrir si banni)
+            if (from.ChanCR == CCCR.Ban)
+            {
+                from.SendMessage("Vous êtes banni du chan RP !");
+            }
+            else
+            {
+                from.ChanCR = CCCR.Close;
+                from.SendMessage(1000, "Channel RP Fermé");
+            }
+            // ]Scriptiz
+        }
+        [Usage("sInfoClose")]
+        [Description("Ferme le Channel annonce")]
+        public static void dInfoCloseMessage_OnCommand(CommandEventArgs e)
+        {
+            Mobile somemobile = e.Mobile;
+            PlayerMobile from = somemobile as PlayerMobile;
+            // Scriptiz[   (ajout de l'impossibilité d'ouvrir si banni)
+            if (from.ChanInfo == CCCINFO.Ban)
+            {
+                from.SendMessage("Vous êtes banni du chan info");
+            }
+            else
+            {
+                from.ChanInfo = CCCINFO.Close;
+                from.SendMessage(1000, "Channel info Fermé");
+            }
+            // ]Scriptiz
+        }
+
+        /*
+        [Usage("cClose")]
+        [Description("Ferme le Channel Staff")]
+        public static void CCloseMessage_OnCommand(CommandEventArgs e)
+        {
+            Mobile somemobile = e.Mobile;
+            PlayerMobile from = somemobile as PlayerMobile;
+            // Scriptiz[   (ajout de l'impossibilité d'ouvrir si banni)
+            if (from.ChanStaff == CCC.Ban)
+            {
+                from.SendMessage("Vous êtes banni du chan Staff");
+            }
+            else
+            {
+                from.ChanStaff = CCC.Close;
+                from.SendMessage(1000, "Channel Staff Fermé");
+            }
+            // ]Scriptiz
+        }
+         */
+
+        public static void BroadcastMessage(AccessLevel ac, int hue, string message, int chan)
+        {
+            foreach (NetState state in NetState.Instances)
+            {
+                Mobile m = state.Mobile;
+                if (m == null)
+                {
+                    continue;    
+                }
+
+                PlayerMobile from = m as PlayerMobile;
+
+                //verifie si le chan est fermé
+                bool ouvert = true;
+                switch (chan)
+                {
+                    case 0:
+                        {
+                            if (from.ChanCH == CCCH.Close)
+                            {
+                                ouvert = false;
+                            }
+                            break;
+                        }
+                    case 1:
+                        {
+                            if (from.ChanCR == CCCR.Close)
+                            {
+                                ouvert = false;
+                            }
+                            break;
+                        }
+                    case 2:
+                        {
+                            if (from.ChanInfo == CCCINFO.Close)
+                            {
+                                ouvert = false;
+                            }
+                            break;
+                        }
+                    case 3:
+                        {
+                            if (from.ChanStaff == CCC.Close)
+                            {
+                                ouvert = false;
+                            }
+                            break;
+                        }
+
+                }
+
+                if (from != null && from.AccessLevel >= ac && ouvert)
+                {
+                    from.SendMessage(hue, message);
+                }
+            }
+        }
+    }
+}

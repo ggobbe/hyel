@@ -1,0 +1,93 @@
+using System;
+using Server;
+using Server.Misc;
+using Server.Items;
+using Server.Guilds;
+
+namespace Server.Mobiles
+{
+    public class CantariGuard : BaseCreature
+    {
+        [Constructable]
+        public CantariGuard()
+            : base(AIType.AI_Melee, FightMode.Aggressor, 14, 1, 0.8, 1.6)
+        {
+            InitStats(1000, 1000, 1000);
+            Title = "Garde du Cantari";
+
+            SpeechHue = Utility.RandomDyedHue();
+
+            Hue = Utility.RandomSkinHue();
+
+            if (Female = Utility.RandomBool())
+            {
+                Body = 0x191;
+                Name = NameList.RandomName("female");
+
+                AddItem(new FemalePlateChest());
+            }
+            else
+            {
+                Body = 0x190;
+                Name = NameList.RandomName("male");
+
+                AddItem(new PlateChest());
+            }
+
+            AddItem(new PlateArms());
+            AddItem(new PlateLegs());
+            AddItem(new PlateGloves());
+            AddItem(new Surcoat());
+
+            Utility.AssignRandomHair(this);
+            if (Utility.RandomBool())
+                Utility.AssignRandomFacialHair(this, HairHue);
+
+            Halberd weapon = new Halberd();
+            weapon.Movable = false;
+            weapon.Crafter = this;
+            weapon.Quality = WeaponQuality.Exceptional;
+            AddItem(weapon);
+
+            Cloak cape = new Cloak();
+            cape.Hue = 2118;
+            AddItem(cape);
+
+            /*
+            BaseShield shield = Shield;
+            shield.Movable = false;
+            AddItem(shield);
+            */
+
+            PackGold(250, 500);
+
+            Skills[SkillName.Anatomy].Base = 120.0;
+            Skills[SkillName.Tactics].Base = 120.0;
+            Skills[SkillName.Swords].Base = 120.0;
+            Skills[SkillName.MagicResist].Base = 120.0;
+            Skills[SkillName.DetectHidden].Base = 100.0;
+        }
+
+        public CantariGuard(Serial serial)
+            : base(serial)
+        {
+        }
+
+        public override void Serialize(GenericWriter writer)
+        {
+            base.Serialize(writer);
+
+            writer.Write((int)1); // version
+        }
+
+        public override void Deserialize(GenericReader reader)
+        {
+            base.Deserialize(reader);
+
+            int version = reader.ReadInt();
+
+            if (version == 0)
+                Delete();
+        }
+    }
+}

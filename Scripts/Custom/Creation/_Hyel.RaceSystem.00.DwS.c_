@@ -1,0 +1,46 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+using Server;
+using Server.Mobiles;
+
+namespace Dws.Misc.HyelRace
+{
+	public enum HyelRace
+	{
+		None,
+		Humain,
+		Elfe,
+		Nain,
+		Hobbit
+	}
+
+	public class HyelRaceSystem
+	{
+		public static void ChangeRace( PlayerMobile pm, HyelRace newRace )
+		{
+			switch( newRace ) {
+				case HyelRace.Elfe: pm.BodyValue = pm.Female ? 0x0B8 : 0x0B7; break;
+				case HyelRace.Nain: pm.BodyValue = pm.Female ? 0x25E : 0x25D; break;
+				default: pm.BodyValue = pm.Female ? 0x191 : 0x190; break;
+			}
+		}
+
+		public static int DeathBody( HyelRace race, bool female )
+		{
+			switch( race ) {
+				case HyelRace.Nain: return female ? 0x260 : 0x25F;
+				default: return female ? 0x193 : 0x192;
+			}
+		}
+
+		public static int AliveBody( HyelRace race, bool female )
+		{
+			switch( race ) {
+				case HyelRace.Elfe: return female ? 0x0B8 : 0x0B7;
+				case HyelRace.Nain: return female ? 0x25E : 0x25D;
+				default: return female ? 0x191 : 0x190;
+			}
+		}
+	}
+}

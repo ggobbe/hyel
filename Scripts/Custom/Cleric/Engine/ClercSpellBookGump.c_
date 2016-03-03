@@ -1,0 +1,675 @@
+using System;
+using System.Collections;
+using Server;
+using Server.Items;
+using Server.Network;
+using Server.Spells;
+using Server.Spells.Cleric;
+using Server.Prompts;
+using Server.Gumps;
+namespace Server.Gumps
+{
+   public class ClercSpellbookGump : Gump
+   {
+      private ClercSpellbook m_Book;
+
+      int gth = 0x903;
+      private void AddBackground()
+      {
+         AddPage( 0 );
+
+         AddImage( 100, 10, 0x1F4, 0 );//0x89b
+
+
+      }
+
+      public static bool HasSpell( Mobile from, int spellID )
+      {
+         Spellbook book = Spellbook.Find( from, spellID );
+         return ( book != null && book.HasSpell( spellID ) );
+      }
+
+
+      public ClercSpellbookGump( Mobile from, ClercSpellbook book ) : base( 150, 200 )
+      {
+      	
+         m_Book = book;
+         AddBackground();
+AddPage( 1 );
+      	  AddLabel( 150, 17, gth, "Livre Saint" );
+
+
+         int sbtn = 0x8B0;//0x93a
+         int dby = 40;
+      	int dbpy = 40;;
+			AddButton( 396, 14, 0x1F6, 0x1F6, 17, GumpButtonType.Page, 2 );
+	
+         if (HasSpell( from, 401) )
+         {
+         	AddLabel( 145, dbpy, gth, "Divine Morph" );
+            AddButton( 125, dbpy + 3, sbtn, sbtn, 1, GumpButtonType.Reply, 1 );
+            dby = dby + 20;
+         }
+         if (HasSpell( from, 402) )
+         {
+         	AddLabel( 145, dby, gth, "Bannir le Mal" );
+            AddButton( 125, dby + 3, sbtn, sbtn, 2, GumpButtonType.Reply, 1 );
+            dby = dby + 20;
+        
+            }
+         if (HasSpell( from, 403) )
+         {
+            AddLabel( 145, dby, gth, "Malediction" );
+            AddButton( 125, dby + 3, sbtn, sbtn, 3, GumpButtonType.Reply, 1 );
+            dby = dby + 20;
+         }
+         if (HasSpell( from, 404) )
+         {
+            AddLabel( 145, dby, gth, "Divin Focus" );
+            AddButton( 125, dby + 3, sbtn, sbtn, 4, GumpButtonType.Reply, 1 );
+            dby = dby + 20;
+         }
+         if (HasSpell( from, 405) )
+         {
+            AddLabel( 145, dby, gth, "Marteau Divin" );
+            AddButton( 125, dby + 3, sbtn, sbtn, 5, GumpButtonType.Reply, 1 );
+            dby = dby + 20;
+         }
+         if (HasSpell( from, 406) )
+         {
+            AddLabel( 145, dby, gth, "Exorcisme" );
+            AddButton( 125, dby + 3, sbtn, sbtn, 6, GumpButtonType.Reply, 1 );
+            dby = dby + 20;
+         }
+         if (HasSpell( from, 407) )
+         {
+            AddLabel( 145, dby, gth, "Resurection" );
+            AddButton( 125, dby + 3, sbtn, sbtn, 7, GumpButtonType.Reply, 1 );
+            dby = dby + 20;
+         }
+         if (HasSpell( from, 408) )
+         {
+            AddLabel( 145, dby, gth, "Guerison Divine" );
+            AddButton( 125, dby + 3, sbtn, sbtn, 8, GumpButtonType.Reply, 1 );
+            //dbpy = dbpy + 20;
+         }
+         if (HasSpell( from, 409) )
+         {
+            AddLabel( 315, dbpy, gth, "Sacrifice" );
+            AddButton( 295, dbpy + 3, sbtn, sbtn, 9, GumpButtonType.Reply, 1 );
+            dbpy = dbpy + 20;
+         }
+         if (HasSpell( from, 410) )
+         {
+            AddLabel( 315, dbpy, gth, "Foudre Divine" );
+            AddButton( 295, dbpy + 3, sbtn, sbtn, 10, GumpButtonType.Reply, 1 );
+            dbpy = dbpy + 20;
+         }
+         if (HasSpell( from, 411) )
+         {
+            AddLabel( 315, dbpy, gth, "Soins Divins" );
+            AddButton( 295, dbpy + 3, sbtn, sbtn, 11, GumpButtonType.Reply, 1 );
+            dbpy = dbpy + 20;
+         }
+         if (HasSpell( from, 412) )
+         {
+         	AddLabel( 315, dbpy, gth, "Halo de flamme" );
+            AddButton( 295, dbpy + 3, sbtn, sbtn, 12, GumpButtonType.Reply, 1 );
+            dbpy = dbpy + 20;
+         }
+         if (HasSpell( from, 413) )
+         {
+            AddLabel( 315, dbpy, gth, "Luminoos" );
+            AddButton( 295, dbpy + 3, sbtn, sbtn, 13, GumpButtonType.Reply, 1 );
+            dbpy = dbpy + 20;
+         }
+         if (HasSpell( from, 414) )
+         {
+            AddLabel( 315, dbpy, gth, "Benediction" );
+            AddButton( 295, dbpy + 3, sbtn, sbtn, 14, GumpButtonType.Reply, 1 );
+            dbpy = dbpy + 20;
+         }
+         if (HasSpell( from, 415) )
+         {
+            AddLabel( 315, dbpy, gth, "Bouclier Divin" );
+            AddButton( 295, dbpy + 3, sbtn, sbtn, 15, GumpButtonType.Reply, 1 );
+            dbpy = dbpy + 20;
+         }
+
+         if (HasSpell( from, 416) )
+         {
+            AddLabel( 315, dby, gth, "Sanctuaire" );
+            AddButton( 295, dbpy + 3, sbtn, sbtn, 16, GumpButtonType.Reply, 1 );
+            //dbpy = dbpy + 20;            
+         }
+AddPage( 2 );
+
+			AddButton( 396, 14, 0x1F6, 0x1F6, 18, GumpButtonType.Page, 3 );
+			AddButton( 123, 15, 0x1F5, 0x1F5, 19, GumpButtonType.Page, 1 );
+        	AddLabel( 295, 187, 0, "Points de Foi : " + from.TithingPoints.ToString());
+
+
+
+         if (HasSpell( from, 417) )
+         {
+         	AddLabel( 145, 40, gth, "Immobilium" );
+            AddButton( 125, 43, sbtn, sbtn, 20, GumpButtonType.Reply, 1 );
+           
+         }
+         if (HasSpell( from, 418) )
+         {
+         	AddLabel( 145, 60, gth, "Pavois Divin" );
+            AddButton( 125, 63, sbtn, sbtn, 21, GumpButtonType.Reply, 1 );
+            
+        
+            }
+         if (HasSpell( from, 419) )
+         {
+            AddLabel( 145, 80, gth, "Destrium" );
+            AddButton( 125, 83, sbtn, sbtn, 22, GumpButtonType.Reply, 1 );
+           
+         }
+         if (HasSpell( from, 420) )
+         {
+            AddLabel( 145, 100, gth, "Robe Divine" );
+            AddButton( 125, 103, sbtn, sbtn, 23, GumpButtonType.Reply, 1 );
+            
+         }
+         if (HasSpell( from, 421) )
+         {
+            AddLabel( 145, 120, gth, "Appelium" );
+            AddButton( 125, 123, sbtn, sbtn, 24, GumpButtonType.Reply, 1 );
+           
+         }
+         if (HasSpell( from, 422) )
+         {
+            AddLabel( 145, 140, gth, "Appeliumis" );
+            AddButton( 125, 143, sbtn, sbtn, 25, GumpButtonType.Reply, 1 );
+             
+         }
+         if (HasSpell( from, 423) )
+         {
+            AddLabel( 145, 160, gth, "Invitate" );
+            AddButton( 125, 163, sbtn, sbtn, 26, GumpButtonType.Reply, 1 );
+             
+         }
+         if (HasSpell( from, 424) )
+         {
+            AddLabel( 145, 180, gth, "Todas Viventas" );
+            AddButton( 125, 183, sbtn, sbtn, 27, GumpButtonType.Reply, 1 );
+             
+         }  
+         
+         if (HasSpell( from, 425) )
+         {
+            AddLabel( 315, 40, gth, "Pluie Divine" );
+            AddButton( 295, 43, sbtn, sbtn, 28, GumpButtonType.Reply, 1 );
+             
+         }                         
+AddPage( 3 );      	 
+			AddButton( 396, 14, 0x1F6, 0x1F6, 18, GumpButtonType.Page, 4 );
+			AddButton( 123, 15, 0x1F5, 0x1F5, 19, GumpButtonType.Page, 2 );
+      	 AddLabel( 150, 37, gth, "Divine Morph" );
+      		AddHtml( 130, 59, 123, 132, "Vous prenez la forme d un Ange et sentez vos forces Augmenter.", false, false );    	
+			AddLabel( 295, 37, gth, "Composants :" );
+			AddLabel( 295, 107, gth, "Points de foi : 9000" );
+			AddLabel( 295, 127, gth, "Competence :" );
+			AddLabel( 295, 147, gth, "Magie" );			
+			AddLabel( 295, 167, gth, "Niveau :  140" );
+		      	AddLabel( 295, 187, gth, "Mana :  110" );
+      
+      	AddPage( 4 );
+      			AddButton( 396, 14, 0x1F6, 0x1F6, 18, GumpButtonType.Page, 5 );
+			AddButton( 123, 15, 0x1F5, 0x1F5, 19, GumpButtonType.Page, 3 );
+      		  AddLabel( 150, 37, gth, "Bannir le Mal" );
+      		AddHtml( 130, 59, 123, 132, "Vous chassez les morts et les forces du Mal.", false, false );
+			AddLabel( 295, 37, gth, "Composants :" );
+			AddLabel( 295, 107, gth, "Points de foi : 100" );
+			AddLabel( 295, 127, gth, "Competence :" );
+			AddLabel( 295, 147, gth, "Magie" );			
+			AddLabel( 295, 167, gth, "Niveau :  90" );
+		      	AddLabel( 295, 187, gth, "Mana :  40" );
+      AddPage( 5 );
+      	 
+			AddButton( 396, 14, 0x1F6, 0x1F6, 18, GumpButtonType.Page, 6 );
+			AddButton( 123, 15, 0x1F5, 0x1F5, 19, GumpButtonType.Page, 4 );
+      	  AddLabel( 150, 37, gth, "Malediction" );
+      		AddHtml( 130, 59, 123, 132, "Vous jeter une Malediction.", false, false );
+			AddLabel( 295, 37, gth, "Composants :" );
+			AddLabel( 295, 107, gth, "Points de foi : 15" );
+			AddLabel( 295, 127, gth, "Competence :" );
+			AddLabel( 295, 147, gth, "Magie" );			
+			AddLabel( 295, 167, gth, "Niveau :  65" );
+		      	AddLabel( 295, 187, gth, "Mana :  15" );
+      	AddPage( 6 );
+      	 
+			AddButton( 396, 14, 0x1F6, 0x1F6, 18, GumpButtonType.Page, 7 );
+			AddButton( 123, 15, 0x1F5, 0x1F5, 19, GumpButtonType.Page, 5 );
+      	 AddLabel( 150, 37, gth, "Divin Focus" );
+      		AddHtml( 130, 59, 123, 132, "Vous communiez et sentez vos forces Augmenter, mais la fatigue est proche.", false, false );
+			AddLabel( 295, 37, gth, "Composants :" );
+			AddLabel( 295, 107, gth, "Points de foi : 200" );
+			AddLabel( 295, 127, gth, "Competence :" );
+			AddLabel( 295, 147, gth, "Magie" );			
+			AddLabel( 295, 167, gth, "Niveau :  100" );
+		      	AddLabel( 295, 187, gth, "Mana :  90" );
+      	AddPage( 7 );
+      	 
+			AddButton( 396, 14, 0x1F6, 0x1F6, 18, GumpButtonType.Page, 8 );
+			AddButton( 123, 15, 0x1F5, 0x1F5, 19, GumpButtonType.Page, 6 );
+      	 AddLabel( 150, 37, gth, "Marteau Divin" );
+      		AddHtml( 130, 59, 123, 132, "Invoquez une Masse de guerre Divine.", false, false );
+			AddLabel( 295, 37, gth, "Composants :" );
+			AddLabel( 295, 107, gth, "Points de foi : 20" );
+			AddLabel( 295, 127, gth, "Competence :" );
+			AddLabel( 295, 147, gth, "Magie" );			
+			AddLabel( 295, 167, gth, "Niveau :  45" );
+		      	AddLabel( 295, 187, gth, "Mana :  15" );
+      	AddPage( 8 );
+      	 
+			AddButton( 396, 14, 0x1F6, 0x1F6, 18, GumpButtonType.Page, 9 );
+			AddButton( 123, 15, 0x1F5, 0x1F5, 19, GumpButtonType.Page, 7 );
+      	  AddLabel( 150, 37, gth, "Exorcisme" );
+      		AddHtml( 130, 59, 123, 132, "Vous chassez le mal des corps.", false, false );
+			AddLabel( 295, 37, gth, "Composants :" );
+			AddLabel( 295, 107, gth, "Points de foi : 5" );
+			AddLabel( 295, 127, gth, "Competence :" );
+			AddLabel( 295, 147, gth, "Magie" );			
+			AddLabel( 295, 167, gth, "Niveau :  50" );
+		      	AddLabel( 295, 187, gth, "Mana :  15" );
+      	AddPage( 9 );
+      	 
+			AddButton( 396, 14, 0x1F6, 0x1F6, 18, GumpButtonType.Page, 10 );
+			AddButton( 123, 15, 0x1F5, 0x1F5, 19, GumpButtonType.Page, 8 );
+      	  AddLabel( 150, 37, gth, "Resurection" );
+      		AddHtml( 130, 59, 123, 132, "Vous ressucitez le Mort.", false, false );
+			AddLabel( 295, 37, gth, "Composants :" );
+			AddLabel( 295, 107, gth, "Points de foi : 100" );
+			AddLabel( 295, 127, gth, "Competence :" );
+			AddLabel( 295, 147, gth, "Magie" );			
+			AddLabel( 295, 167, gth, "Niveau :  80" );
+		      	AddLabel( 295, 187, gth, "Mana :  50" );
+      	AddPage( 10 );
+      	 
+			AddButton( 396, 14, 0x1F6, 0x1F6, 18, GumpButtonType.Page, 11 );
+			AddButton( 123, 15, 0x1F5, 0x1F5, 19, GumpButtonType.Page, 9 );
+      AddLabel( 150, 37, gth, "Guerison Divine" );
+      		AddHtml( 130, 59, 123, 132, "L etre beni recevra les soins divins a chaque instant", false, false );
+			AddLabel( 295, 37, gth, "Composants :" );
+			AddLabel( 295, 107, gth, "Points de foi : 80" );
+			AddLabel( 295, 127, gth, "Competence :" );
+			AddLabel( 295, 147, gth, "Magie" );			
+			AddLabel( 295, 167, gth, "Niveau :  90" );
+		      	AddLabel( 295, 187, gth, "Mana :  50" );
+      	AddPage( 11 );
+      	 
+			AddButton( 396, 14, 0x1F6, 0x1F6, 18, GumpButtonType.Page, 12 );
+			AddButton( 123, 15, 0x1F5, 0x1F5, 19, GumpButtonType.Page, 10 );
+      	 AddLabel( 150, 37, gth, "Sacrifice" );
+      		AddHtml( 130, 59, 123, 132, "Vous Absorbez une partie des blessures de vos compagnons.", false, false );
+			AddLabel( 295, 37, gth, "Composants :" );
+			AddLabel( 295, 107, gth, "Points de foi : 5" );
+			AddLabel( 295, 127, gth, "Competence :" );
+			AddLabel( 295, 147, gth, "Magie" );			
+			AddLabel( 295, 167, gth, "Niveau :  50" );
+		      	AddLabel( 295, 187, gth, "Mana :  15" );
+      	AddPage( 12 );
+      	 
+			AddButton( 396, 14, 0x1F6, 0x1F6, 18, GumpButtonType.Page, 13 );
+			AddButton( 123, 15, 0x1F5, 0x1F5, 19, GumpButtonType.Page, 11 );
+      	  AddLabel( 150, 37, gth, "Foudre Divine" );
+      		AddHtml( 130, 59, 123, 132, "Vous appelez la Foudre Divine.", false, false );
+			AddLabel( 295, 37, gth, "Composants :" );
+			AddLabel( 295, 107, gth, "Points de foi : 200" );
+			AddLabel( 295, 127, gth, "Competence :" );
+			AddLabel( 295, 147, gth, "Magie" );			
+			AddLabel( 295, 167, gth, "Niveau :  120" );
+		      	AddLabel( 295, 187, gth, "Mana :  100" );
+      	AddPage( 13 );
+      	 
+			AddButton( 396, 14, 0x1F6, 0x1F6, 18, GumpButtonType.Page, 14 );
+			AddButton( 123, 15, 0x1F5, 0x1F5, 19, GumpButtonType.Page, 12 );
+      	 AddLabel( 150, 37, gth, "Soins Divins" );
+      		AddHtml( 130, 59, 123, 132, "Vous donnez des soins par votre Foi.", false, false );
+			AddLabel( 295, 37, gth, "Composants :" );
+			AddLabel( 295, 107, gth, "Points de foi : 10" );
+			AddLabel( 295, 127, gth, "Competence :" );
+			AddLabel( 295, 147, gth, "Magie" );			
+			AddLabel( 295, 167, gth, "Niveau :  40" );
+		      	AddLabel( 295, 187, gth, "Mana :  15" );
+      	AddPage( 14 );
+      	 
+			AddButton( 396, 14, 0x1F6, 0x1F6, 18, GumpButtonType.Page, 15 );
+			AddButton( 123, 15, 0x1F5, 0x1F5, 19, GumpButtonType.Page, 13 );
+      		  AddLabel( 150, 37, gth, "Halo de flamme" );
+      		AddHtml( 130, 59, 123, 132, "Un Halo de Flamme divine vous Protege.", false, false );
+			AddLabel( 295, 37, gth, "Composants :" );
+			AddLabel( 295, 107, gth, "Points de foi : 25" );
+			AddLabel( 295, 127, gth, "Competence :" );
+			AddLabel( 295, 147, gth, "Magie" );			
+			AddLabel( 295, 167, gth, "Niveau :  85" );
+		      	AddLabel( 295, 187, gth, "Mana :  15" );
+      	AddPage( 15 );
+      	 
+			AddButton( 396, 14, 0x1F6, 0x1F6, 18, GumpButtonType.Page, 16 );
+			AddButton( 123, 15, 0x1F5, 0x1F5, 19, GumpButtonType.Page, 14 );
+      	 AddLabel( 150, 37, gth, "Luminoos" );
+      		AddHtml( 130, 59, 123, 132, "une Lumiere Divine vous eclaire.", false, false );
+			AddLabel( 295, 37, gth, "Composants :" );
+			AddLabel( 295, 107, gth, "Points de foi : 20" );
+			AddLabel( 295, 127, gth, "Competence :" );
+			AddLabel( 295, 147, gth, "Magie" );			
+			AddLabel( 295, 167, gth, "Niveau :  30" );
+		      	AddLabel( 295, 187, gth, "Mana :  10" );
+      	AddPage( 16 );
+      	 
+			AddButton( 396, 14, 0x1F6, 0x1F6, 18, GumpButtonType.Page, 17 );
+			AddButton( 123, 15, 0x1F5, 0x1F5, 19, GumpButtonType.Page, 15 );
+      	AddLabel( 150, 37, gth, "Benediction" );
+      		AddHtml( 130, 59, 123, 132, "Vous benissez et fortifiez autrui.", false, false );
+			AddLabel( 295, 37, gth, "Composants :" );
+			AddLabel( 295, 107, gth, "Points de foi : 40" );
+			AddLabel( 295, 127, gth, "Competence :" );
+			AddLabel( 295, 147, gth, "Magie" );			
+			AddLabel( 295, 167, gth, "Niveau :  60" );
+		      	AddLabel( 295, 187, gth, "Mana :  15" );
+      	AddPage( 17 );
+      	 
+			AddButton( 396, 14, 0x1F6, 0x1F6, 18, GumpButtonType.Page, 18 );
+			AddButton( 123, 15, 0x1F5, 0x1F5, 19, GumpButtonType.Page, 16 );
+      	  AddLabel( 150, 37, gth, "Bouclier Divin" );
+      		AddHtml( 130, 59, 123, 132, "Cree une aura de protection Divine autoure de vous.", false, false );
+			AddLabel( 295, 37, gth, "Composants :" );
+			AddLabel( 295, 107, gth, "Points de foi : 40" );
+			AddLabel( 295, 127, gth, "Competence :" );
+			AddLabel( 295, 147, gth, "Magie" );			
+			AddLabel( 295, 167, gth, "Niveau :  55" );
+		      	AddLabel( 295, 187, gth, "Mana :  15" );
+	AddPage( 18 );
+      	 
+			AddButton( 396, 14, 0x1F6, 0x1F6, 18, GumpButtonType.Page, 19 );
+			AddButton( 123, 15, 0x1F5, 0x1F5, 19, GumpButtonType.Page, 17 );
+			AddLabel( 150, 37, gth, "Sanctuaire" );
+      		AddHtml( 130, 59, 123, 132, "Dissipe la magie au alentour.", false, false );
+			AddLabel( 295, 37, gth, "Composants :" );
+			AddLabel( 295, 107, gth, "Points de foi : 100" );
+			AddLabel( 295, 127, gth, "Competence :" );
+			AddLabel( 295, 147, gth, "Magie" );			
+			AddLabel( 295, 167, gth, "Niveau :  80" );
+		      	AddLabel( 295, 187, gth, "Mana :  20" );
+ 
+ 	AddPage( 19 );
+      	 
+			AddButton( 396, 14, 0x1F6, 0x1F6, 18, GumpButtonType.Page, 20 );
+			AddButton( 123, 15, 0x1F5, 0x1F5, 19, GumpButtonType.Page, 18 );
+			AddLabel( 150, 37, gth, "Immobilium" );
+      		AddHtml( 130, 59, 123, 132, "Immobilise votre adversaire.", false, false );
+			AddLabel( 295, 37, gth, "Composants :" );
+			AddLabel( 295, 107, gth, "Points de foi : 50" );
+			AddLabel( 295, 127, gth, "Competence :" );
+			AddLabel( 295, 147, gth, "Magie" );			
+			AddLabel( 295, 167, gth, "Niveau :  75" );
+		      	AddLabel( 295, 187, gth, "Mana :  75" );
+	AddPage( 20 );
+      	 
+			AddButton( 396, 14, 0x1F6, 0x1F6, 18, GumpButtonType.Page, 21 );
+			AddButton( 123, 15, 0x1F5, 0x1F5, 19, GumpButtonType.Page, 19 );
+			AddLabel( 150, 37, gth, "Pavois Divin" );
+      		AddHtml( 130, 59, 123, 132, "Les Dieux vous armes d'un Pavois sacré.", false, false );
+			AddLabel( 295, 37, gth, "Composants :" );
+			AddLabel( 295, 107, gth, "Points de foi : 50" );
+			AddLabel( 295, 127, gth, "Competence :" );
+			AddLabel( 295, 147, gth, "Magie" );			
+			AddLabel( 295, 167, gth, "Niveau :  70" );
+		      	AddLabel( 295, 187, gth, "Mana :  50" );
+
+	AddPage( 21 );
+      	 
+			AddButton( 396, 14, 0x1F6, 0x1F6, 18, GumpButtonType.Page, 22 );
+			AddButton( 123, 15, 0x1F5, 0x1F5, 19, GumpButtonType.Page, 20 );
+			AddLabel( 150, 37, gth, "Destrium" );
+      		AddHtml( 130, 59, 123, 132, "Les Dieux vous donnent un Cheval de guerre.", false, false );
+			AddLabel( 295, 37, gth, "Composants :" );
+			AddLabel( 295, 107, gth, "Points de foi : 500" );
+			AddLabel( 295, 127, gth, "Competence :" );
+			AddLabel( 295, 147, gth, "Magie" );			
+			AddLabel( 295, 167, gth, "Niveau :  100" );
+		      	AddLabel( 295, 187, gth, "Mana :  80" );
+		      	
+	AddPage( 22 );
+      	 
+			AddButton( 396, 14, 0x1F6, 0x1F6, 18, GumpButtonType.Page, 23 );
+			AddButton( 123, 15, 0x1F5, 0x1F5, 19, GumpButtonType.Page, 21 );
+			AddLabel( 150, 37, gth, "Robe Divine" );
+      		AddHtml( 130, 59, 123, 132, "Les Dieux vous donnent une robe de protection.", false, false );
+			AddLabel( 295, 37, gth, "Composants :" );
+			AddLabel( 295, 107, gth, "Points de foi : 50" );
+			AddLabel( 295, 127, gth, "Competence :" );
+			AddLabel( 295, 147, gth, "Magie" );			
+			AddLabel( 295, 167, gth, "Niveau :  65" );
+		      	AddLabel( 295, 187, gth, "Mana :  50" );
+		      	
+	AddPage( 23 );
+      	 
+			AddButton( 396, 14, 0x1F6, 0x1F6, 18, GumpButtonType.Page, 24 );
+			AddButton( 123, 15, 0x1F5, 0x1F5, 19, GumpButtonType.Page, 22 );
+			AddLabel( 150, 37, gth, "Appelium" );
+      		AddHtml( 130, 59, 123, 132, "Vous appelez un esprit guerrier ancien à votre aide.", false, false );
+			AddLabel( 295, 37, gth, "Composants :" );
+			AddLabel( 295, 107, gth, "Points de foi : ?" );
+			AddLabel( 295, 127, gth, "Competence :" );
+			AddLabel( 295, 147, gth, "Magie" );			
+			AddLabel( 295, 167, gth, "Niveau :  ?" );
+		      	AddLabel( 295, 187, gth, "Mana :  ?" );
+		      	
+	AddPage( 24 );
+      	 
+			AddButton( 396, 14, 0x1F6, 0x1F6, 18, GumpButtonType.Page, 25 );
+			AddButton( 123, 15, 0x1F5, 0x1F5, 19, GumpButtonType.Page, 23 );
+			AddLabel( 150, 37, gth, "Appeliumis" );
+      		AddHtml( 130, 59, 123, 132, "Vous appelez 4 Esprits Sacrés à votre aide", false, false );
+			AddLabel( 295, 37, gth, "Composants :" );
+			AddLabel( 295, 107, gth, "Points de foi : ?" );
+			AddLabel( 295, 127, gth, "Competence :" );
+			AddLabel( 295, 147, gth, "Magie" );			
+			AddLabel( 295, 167, gth, "Niveau :  ?" );
+		      	AddLabel( 295, 187, gth, "Mana :  ?" );		      			      			      			      			      	
+
+	AddPage( 25 );
+      	 
+			AddButton( 396, 14, 0x1F6, 0x1F6, 18, GumpButtonType.Page, 26 );
+			AddButton( 123, 15, 0x1F5, 0x1F5, 19, GumpButtonType.Page, 24 );
+			AddLabel( 150, 37, gth, "Invitate" );
+      		AddHtml( 130, 59, 123, 132, "Vous transporte dans le sanctuaire des Clercs.", false, false );
+			AddLabel( 295, 37, gth, "Composants :" );
+			AddLabel( 295, 107, gth, "Points de foi : 80" );
+			AddLabel( 295, 127, gth, "Competence :" );
+			AddLabel( 295, 147, gth, "Magie" );			
+			AddLabel( 295, 167, gth, "Niveau : 10 " );
+		      	AddLabel( 295, 187, gth, "Mana :  15" );
+
+	AddPage( 26 );
+      	 
+
+			AddButton( 123, 15, 0x1F5, 0x1F5, 19, GumpButtonType.Page, 25 );
+			AddButton( 396, 14, 0x1F6, 0x1F6, 18, GumpButtonType.Page, 27 );
+			AddLabel( 150, 37, gth, "Todas Viventas" );
+      		AddHtml( 130, 59, 123, 132, "Vous Rendez vie aux proches.", false, false );
+			AddLabel( 295, 37, gth, "Composants :" );
+			AddLabel( 295, 107, gth, "Points de foi : 200" );
+			AddLabel( 295, 127, gth, "Competence :" );
+			AddLabel( 295, 147, gth, "Magie" );			
+			AddLabel( 295, 167, gth, "Niveau :  80" );
+		      	AddLabel( 295, 187, gth, "Mana :  110" );
+	AddPage( 27 );
+      	 
+
+			AddButton( 123, 15, 0x1F5, 0x1F5, 19, GumpButtonType.Page, 26 );
+			AddLabel( 150, 37, gth, "Pluie Divine" );
+      		AddHtml( 130, 59, 123, 132, "Vous soignez vos proches.", false, false );
+			AddLabel( 295, 37, gth, "Composants :" );
+			AddLabel( 295, 107, gth, "Points de foi : 20" );
+			AddLabel( 295, 127, gth, "Competence :" );
+			AddLabel( 295, 147, gth, "Magie" );			
+			AddLabel( 295, 167, gth, "Niveau :  70" );
+		      	AddLabel( 295, 187, gth, "Mana :  40" );
+      }
+
+
+
+
+
+      public override void OnResponse( NetState state, RelayInfo info )
+      {
+         Mobile from = state.Mobile;
+         switch ( info.ButtonID )
+         {
+            case 0:
+            {
+               break;
+            }
+            case 1:
+            {
+               new AngelicFaithSpell( from, null ).Cast();
+               break;
+            }
+            case 2:
+            {
+               new BanishEvilSpell( from, null ).Cast();
+               break;
+            }
+            case 3:
+            {
+               new DampenSpiritSpell( from, null ).Cast();
+               break;
+            }
+            case 4:
+            {
+               new DivineFocusSpell( from, null ).Cast();
+               break;
+            }
+            case 5:
+            {
+               new HammerOfFaithSpell( from, null ).Cast();
+               break;
+            }
+            case 6:
+            {
+               new PurgeSpell( from, null ).Cast();
+               break;
+            }
+            case 7:
+            {
+               new ResurectionSpell( from, null ).Cast();
+               break;
+            }
+            case 8:
+            {
+               new SacredBoonSpell( from, null ).Cast();
+               break;
+            }
+              case 9:
+            {
+               new SacrificeSpell( from, null ).Cast();
+               break;
+            }
+            case 10:
+            {
+               new SmiteSpell( from, null ).Cast();
+               break;
+            }
+               case 11:
+            {
+               new TouchOfLifeSpell( from, null ).Cast();
+               break;
+            }
+               case 12:
+            {
+               new TrialByFireSpell( from, null ).Cast();
+               break;
+            }
+               case 13:
+            {
+              new LumiereSpell( from, null ).Cast();
+               break;
+            }
+               case 14:
+            {
+              new BeneSpell( from, null ).Cast();
+               break;
+            }
+               case 15:
+            {
+               new repSpell( from, null ).Cast();
+               break;
+            }
+               case 16:
+            {
+               new SanctuaireSpell( from, null ).Cast();
+               break;
+            }
+                case 17:
+            {
+              from.PlaySound(0x55);
+              break;
+            }
+                case 18:
+            {
+             from.PlaySound(0x55);
+               break;
+            }
+                case 19:
+            {
+               from.PlaySound(0x55);
+               break;
+            }
+            case 20:
+            {
+               new ImmobileSpell( from, null ).Cast();
+               break;
+            }
+            case 21:
+            {
+               new BouclierSpell( from, null ).Cast();
+               break;
+            }
+            case 22:
+            {
+               new MontureSpell( from, null ).Cast();
+               break;
+            }
+            case 23:
+            {
+               new RobeSpell( from, null ).Cast();
+               break;
+            }
+            case 24:
+            {
+               new AppelSpell( from, null ).Cast();
+               break;
+            }
+            case 25:
+            {
+               new AppelsSpell( from, null ).Cast();
+               break;
+            }                                                                        
+            case 26:
+            {
+               new InviteSpell( from, null ).Cast();
+               break;
+            }
+            case 27:
+            {
+               new ResutousSpell( from, null ).Cast();
+               break;
+            }
+            case 28:
+            {
+               new MassoinSpell( from, null ).Cast();
+               break;
+            }
+
+         }
+      }
+   }
+}

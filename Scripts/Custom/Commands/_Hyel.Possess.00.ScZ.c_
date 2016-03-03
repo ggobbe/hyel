@@ -1,0 +1,228 @@
+/**
+ * Scriptiz@19/11/07 : Scripts permettant de prendre le contrôle d'un mobile par un GM.
+ * 
+ * .possess : prend controle de la cible par le GM
+ * .unpossess : libère le mobile de l'emprise du GM
+ **/
+using System;
+using System.Reflection;
+using System.Collections;
+using Server;
+using Server.Mobiles;
+using Server.Items;
+using Server.Targeting;
+
+namespace Server.Commands
+{
+    public class Possess
+    {
+        public static Layer[] ItemLayers = {Layer.FirstValid, Layer.TwoHanded, Layer.Shoes, Layer.Pants,
+			Layer.Shirt, Layer.Helm, Layer.Gloves, Layer.Ring, Layer.Neck, Layer.Hair,
+			Layer.Waist, Layer.InnerTorso, Layer.Bracelet, Layer.FacialHair, Layer.MiddleTorso,
+			Layer.Earrings, Layer.Arms, Layer.Cloak, Layer.OuterTorso, Layer.OuterLegs, Layer.Mount };
+        //LastUser valide	?
+        public static void Initialize()
+        {
+            CommandSystem.Register("Possess", AccessLevel.GameMaster, new CommandEventHandler(Possess_OnCommand));
+            CommandSystem.Register("Unpossess", AccessLevel.GameMaster, new CommandEventHandler(UnPossess_OnCommand));
+        }
+
+        public static void CopyProps(Mobile from, Mobile to)
+        {
+            string[] PropsToChange = {
+				"RawDex",
+				"RawInt",
+				"RawStr",
+				"Body",
+				"BodyMod",
+				"BodyValue",
+				"Criminal",
+				"Direction",
+				"DisplayGuildTitle",
+				"EmoteHue",
+				"Fame",
+				"Female",
+				"Guild",
+				"GuildFealty",
+				"GuildTitle",
+				"Hits",
+				"Hue",
+				"Karma",
+				"Kills",
+				"MagicDamageAbsorb",
+				"Mana",
+				"MeleeDamageAbsorb",
+				"Name",
+				"NameHue",
+				"NameMod",
+				"Paralyzed",
+				"Poison",
+				"ShortTermMurders",
+				"SpeechHue",
+				"Stam",
+				"Title",
+				"VirtualArmor",
+				"VirtualArmorMod",
+				"Warmode",
+				"WhisperHue",
+				"YellHue",
+                "HairItemId",
+                "HairHue"
+			};
+
+            try
+            {
+                Type t = typeof(Mobile);
+                PropertyInfo pi;
+
+                for (int i = 0; i < PropsToChange.Length; i++)
+                {
+                    pi = t.GetProperty(PropsToChange[i],
+                        BindingFlags.GetField | BindingFlags.Instance | BindingFlags.Public);
+                    pi.SetValue(to, pi.GetValue(from, null), null);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Possess: CopyProps Exception: {0}", e.Message);
+            }
+        }
+
+        public static void CopySkills(Mobile from, Mobile to)
+        {
+            try
+            {
+                for (int i = 0; i < from.Skills.Length; i++)
+                {
+                    to.Skills[i].Base = from.Skills[i].Base;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Possess: CopySkills Exception: {0}", e.Message);
+            }
+        }
+
+        public static void MoveItems(Mobile from, Mobile to)
+        {
+            ArrayList PossessItems = new ArrayList(from.Items);
+            try
+            {
+
+                for (int i = 0; i < PossessItems.Count; i++)
+                {
+                    Item item = (Item)PossessItems[i];
+                    if (Array.IndexOf(ItemLayers, item.Layer) != -1)
+                    {
+                        to.EquipItem(item);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Possess: MoveItems Exception: {0}", e.Message);
+            }
+        }
+
+        private class PossessTarget : Target
+        {
+            public PossessTarget()
+                : base(-1, false, TargetFlags.None)
+            {
+            }
+
+            protected override void OnTarget(Mobile from_mob, object o)
+            {
+                PlayerMobile from = from_mob as PlayerMobile;
+                if (o is Mobile)
+                {
+                    Mobile m = (Mobile)o;
+
+                    if (m.Account != null)
+                    {
+                        from.SendMessage("You cannot possess other players!");
+                        return;
+                    }
+
+                    if (from.m_PossessMob != null)
+                    {
+                        Mobile StorageMob1 = from.m_PossessStorageMob;
+                        Mobile m1 = from.m_PossessMob;
+                        MoveItems(from, m1);
+                        m1.Location = from.Location;
+                        m1.Direction = from.Direction;
+                        m1.Map = from.Map;
+                        m1.Frozen = false;
+
+                        CopyProps(StorageMob1, from);
+                        CopySkills(StorageMob1, from);
+                        MoveItems(StorageMob1, from);
+                        StorageMob1.Delete();
+                        from.m_PossessMob = null;
+                        from.m_PossessStorageMob = null;
+                        from.Hidden = true;
+                    }
+
+                    Mobile StorageMob = new Mobile();
+
+                    from.m_PossessMob = m;
+                    from.m_PossessStorageMob = StorageMob;
+
+                    CopyProps(from, StorageMob);
+                    CopySkills(from, StorageMob);
+                    MoveItems(from, StorageMob);
+                    StorageMob.InvalidateProperties();
+
+                    CopyProps(m, from);
+                    from.Location = m.Location;
+                    CopySkills(m, from);
+                    MoveItems(m, from);
+
+                    m.Frozen = true;
+                    m.Map = Map.Internal;
+
+                    from.InvalidateProperties();
+                    from.Hidden = false;
+                }
+            }
+        }
+
+        [Usage("Possess")]
+        [Description("Allows staff member to `possess' any NPC mobile.")]
+        private static void Possess_OnCommand(CommandEventArgs e)
+        {
+            e.Mobile.Target = new PossessTarget();
+        }
+
+        [Usage("Unpossess")]
+        [Description("Reverses efect of previous possess command.")]
+        private static void UnPossess_OnCommand(CommandEventArgs e)
+        {
+            try
+            {
+                PlayerMobile from = (PlayerMobile)e.Mobile;
+                if (from.m_PossessStorageMob == null)
+                {
+                    from.SendMessage("You are not currently possessing any mobile.");
+                    return;
+                }
+                Mobile StorageMob = from.m_PossessStorageMob;
+                Mobile m = from.m_PossessMob;
+                MoveItems(from, m);
+                m.Location = from.Location;
+                m.Direction = from.Direction;
+                m.Map = from.Map;
+                m.Frozen = false;
+
+                CopyProps(StorageMob, from);
+                CopySkills(StorageMob, from);
+                MoveItems(StorageMob, from);
+                StorageMob.Delete();
+                from.m_PossessMob = null;
+                from.m_PossessStorageMob = null;
+                from.Hidden = true;
+            }
+            catch { }
+        }
+    }
+}

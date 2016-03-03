@@ -1,0 +1,102 @@
+using System;
+using Server.Targeting;
+using Server.Network;
+using Server.Misc;
+using Server.Items;
+using System.Collections; 
+using Server.Mobiles; 
+
+namespace Server.Spells.Druid
+{
+  	public class flowerOfEarthSpell : DruidicSpell
+	{
+		private static SpellInfo m_Info = new SpellInfo
+		(
+			"flower Of Earth Spell", "En Ante Ohm Floras",
+			SpellCircle.Third,
+            266,
+            9040,
+            false,
+            Reagent.MandrakeRoot,
+            Reagent.PetrafiedWood,
+            Reagent.SpringWater
+         );
+
+      public override double CastDelay{ get{ return 2.0; } }
+      public override double RequiredSkill{ get{ return 25.0; } }
+      public override int RequiredMana{ get{ return 10; } }
+
+     
+
+      public flowerOfEarthSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
+      {
+      }
+
+     public override void OnCast()
+      {
+         Caster.Target = new InternalTarget( this );
+      }
+
+
+    
+
+
+           public void Target( IPoint3D p )
+      {
+         if ( !Caster.CanSee( p ) )
+         {
+            Caster.SendLocalizedMessage( 500237 ); // Target can not be seen.
+         }
+         else if ( SpellHelper.CheckTown( p, Caster ) && CheckSequence() )
+         {
+         		if(this.Scroll!=null)
+				Scroll.Consume();
+				SpellHelper.Turn( Caster, p );
+
+				SpellHelper.GetSurfaceTop( ref p );
+
+
+				Effects.PlaySound( p, Caster.Map, 0x2 );
+
+            
+				Point3D loc = new Point3D( p.X, p.Y, p.Z );
+               	int grovex;
+				int grovey;
+				int grovez;
+InternalItem grovecentre = new InternalItem( Caster.Location, Caster.Map, Caster );
+				grovex=loc.X;
+				grovey=loc.Y;
+				grovez=loc.Z;
+				grovecentre.ItemID=0x0C4C;
+				Point3D centrexyz = new Point3D(grovex,grovey,grovez);
+				grovecentre.MoveToWorld( centrexyz, Caster.Map );
+
+InternalItem grovea = new InternalItem( Caster.Location, Caster.Map, Caster );
+				grovex=loc.X-2;
+				grovey=loc.Y-2;
+				grovez=loc.Z;
+				grovea.ItemID=3144;
+				Point3D grovexyz = new Point3D(grovex,grovey,grovez);
+				grovea.MoveToWorld( grovexyz, Caster.Map );
+         	
+InternalItem grovec = new InternalItem( Caster.Location, Caster.Map, Caster );
+				grovex=loc.X;
+				grovey=loc.Y-3;
+				grovez=loc.Z;
+				grovec.ItemID=3146;
+				Point3D grovexyzb = new Point3D(grovex,grovey,grovez);
+				grovec.MoveToWorld( grovexyzb, Caster.Map );
+         	
+InternalItem groved = new InternalItem( Caster.Location, Caster.Map, Caster );
+				groved.ItemID=3144;
+				grovex=loc.X+2;
+				grovey=loc.Y-2;
+				grovez=loc.Z;
+				Point3D grovexyzc = new Point3D(grovex,grovey,grovez);
+				groved.MoveToWorld( grovexyzc, Caster.Map );
+InternalItem grovee = new InternalItem( Caster.Location, Caster.Map, Caster );
+				grovex=loc.X+3;
+				grovee.ItemID=3144;
+				grovey=loc.Y;
+				grovez=loc.Z;
+				Point3D grovexyzd = new P

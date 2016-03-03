@@ -1,0 +1,192 @@
+using System;
+using System.Collections;
+using Server.Items;
+using Server.ContextMenus;
+using Server.Misc;
+using Server.Network;
+
+namespace Server.Mobiles
+{
+	public class paladinmaudit : BaseCreature
+	{
+		[Constructable]
+		public paladinmaudit() : base( AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4 )
+		{
+			//SpeechHue = Utility.RandomDyedHue();
+			Title = "Paladin Maudit";
+			Hue = 0X0FC;
+			Body = 0x190;
+
+
+			SetStr( 200, 250 );
+			SetDex( 200, 250 );
+			SetInt( 200, 250 );
+			SetHits( 560, 595 );
+			
+			SetDamage( 25, 30 );
+
+			SetResistance( ResistanceType.Physical, 20, 25 );
+			SetResistance( ResistanceType.Fire, 90, 100 );
+			SetResistance( ResistanceType.Cold, 50, 60 );
+			SetResistance( ResistanceType.Poison, 60, 80 );
+			SetResistance( ResistanceType.Energy, 50, 60 );
+
+			SetSkill( SkillName.Parry, 100.0, 105.5 );
+			SetSkill( SkillName.Fencing, 80.0, 85.0 );
+			SetSkill( SkillName.Macing, 80.0, 85.5 );
+			SetSkill( SkillName.MagicResist, 25.0, 47.5 );
+			SetSkill( SkillName.Swords, 80.0, 85.5 );
+			SetSkill( SkillName.Tactics, 80.0, 85.5 );
+			SetSkill( SkillName.Wrestling, 80.0, 85.5 );
+
+			Fame = 1000;
+			Karma = -2000;
+
+			PlateChest chest = new PlateChest(); 
+			chest.Hue = 0x837;
+			chest.ProtectionLevel = ArmorProtectionLevel.Guarding;
+			chest.Durability = ArmorDurabilityLevel.Durable;
+			chest.Name = "Vieille Armure"; 
+			AddItem( chest ); 
+			PlateArms arms = new PlateArms(); 
+			arms.Hue = 0x837;
+			arms.ProtectionLevel = ArmorProtectionLevel.Guarding;
+			arms.Durability = ArmorDurabilityLevel.Durable;
+			arms.Name = "Vieille Armure";  
+			AddItem( arms ); 
+			PlateGloves gloves = new PlateGloves(); 
+			gloves.Hue = 0x837;
+			gloves.ProtectionLevel = ArmorProtectionLevel.Guarding;
+			gloves.Durability = ArmorDurabilityLevel.Durable;
+			gloves.Name = "Vieille Armure"; 			 
+			AddItem( gloves ); 
+			PlateGorget gorget = new PlateGorget(); 
+			gorget.Hue = 0x837;
+			gorget.ProtectionLevel = ArmorProtectionLevel.Guarding;
+			gorget.Durability = ArmorDurabilityLevel.Durable;
+			gorget.Name = "Vieille Armure"; 			 
+			AddItem( gorget ); 
+			PlateLegs legs = new PlateLegs(); 
+			legs.Hue = 0x837;
+			legs.ProtectionLevel = ArmorProtectionLevel.Guarding;
+			legs.Durability = ArmorDurabilityLevel.Durable;
+			legs.Name = "Vieille Armure"; 			 
+			AddItem( legs ); 
+			PlateHelm helm = new PlateHelm(); 
+			helm.Hue = 0x837;
+			helm.ProtectionLevel = ArmorProtectionLevel.Guarding;
+			helm.Durability = ArmorDurabilityLevel.Durable;
+			helm.Name = "Vieille Armure"; 			 
+			AddItem( helm );
+			HeaterShield hs = new HeaterShield();
+			hs.Hue = 0x837;
+			hs.ProtectionLevel = ArmorProtectionLevel.Guarding;
+			hs.Durability = ArmorDurabilityLevel.Durable;
+			hs.Name = "Vieille Armure"; 			
+			AddItem( hs );
+			Robe rb = new Robe();
+			rb.Hue = 0x455;
+			rb.Name = "Tunic de Combat"; 			
+			AddItem( rb );
+
+			legs.Movable = false;
+			helm.Movable = false;
+			hs.Movable = false;
+			chest.Movable = false;
+			gorget.Movable = false;
+			arms.Movable = false;
+			chest.Movable = false;			
+			gloves.Movable = false;				
+			
+			Longswordx lg = new Longswordx();
+			lg.Quality = WeaponQuality.Low;
+			lg.DamageLevel = WeaponDamageLevel.Ruin;
+			lg.AccuracyLevel = WeaponAccuracyLevel.Accurate;
+			lg.Hue = 0x413;
+			Cutclassx ct = new Cutclassx();
+			ct.Quality = WeaponQuality.Low;
+			ct.DamageLevel = WeaponDamageLevel.Ruin;
+			ct.AccuracyLevel = WeaponAccuracyLevel.Accurate;
+			ct.Hue = 0x413;
+			Broadswordx bd = new Broadswordx();
+			bd.Quality = WeaponQuality.Low;
+			bd.DamageLevel = WeaponDamageLevel.Ruin;
+			bd.AccuracyLevel = WeaponAccuracyLevel.Accurate;
+			bd.Hue = 0x413;
+			WarAxex wa = new WarAxex();
+			wa.Quality = WeaponQuality.Low;
+			wa.DamageLevel = WeaponDamageLevel.Ruin;
+			wa.AccuracyLevel = WeaponAccuracyLevel.Accurate;
+			wa.Hue = 0x413;
+			Maulx ml = new Maulx();
+			ml.Quality = WeaponQuality.Low;
+			ml.DamageLevel = WeaponDamageLevel.Ruin;
+			ml.AccuracyLevel = WeaponAccuracyLevel.Accurate;
+			ml.Hue = 0x413;
+			WarHammerx wh = new WarHammerx();
+			wh.Quality = WeaponQuality.Low;
+			wh.DamageLevel = WeaponDamageLevel.Ruin;
+			wh.AccuracyLevel = WeaponAccuracyLevel.Accurate;
+			wh.Hue = 0x413;
+			Daggerx dg = new Daggerx();
+			dg.Quality = WeaponQuality.Low;
+			dg.DamageLevel = WeaponDamageLevel.Ruin;
+			dg.AccuracyLevel = WeaponAccuracyLevel.Accurate;
+			dg.Hue = 0x413;
+
+			switch ( Utility.Random( 7 ))
+			{
+				case 0: AddItem( lg ); break;
+				case 1: AddItem( ct ); break;
+				case 2: AddItem( bd ); break;
+				case 3: AddItem( wa ); break;
+				case 4: AddItem( ml ); break;
+				case 5: AddItem( wh ); break;
+				case 6: AddItem( dg ); break;
+			}
+
+			Item hair = new Item( Utility.RandomList( 0x203B, 0x2049, 0x2048, 0x204A ) );
+			hair.Hue = Utility.RandomNondyedHue();
+			hair.Layer = Layer.Hair;
+			hair.Movable = false;
+			AddItem( hair );
+
+			PackGold( 100, 300 );
+			PackItem( new CleanseByFireSOScroll() );
+			PackItem( new CloseWoundSOScroll() );
+			PackItem( new ConsecrateWeaponSOScroll() );
+			PackItem( new DivineFurySOScroll() );			
+			PackItem( new SacredJourneySOScroll() );				
+			VirtualArmor = 30;
+
+		}
+
+		public override bool OnBeforeDeath()
+		{
+			LastKiller.Backpack.DropItem( new BookOfChivalrySO());
+			LastKiller.SendMessage("Vous trouvez un Livre !");
+			return true;
+		}
+		
+		public override bool AlwaysMurderer{ get{ return true; } }
+
+		public paladinmaudit( Serial serial ) : base( serial )
+		{
+		}
+
+		public override void Serialize( GenericWriter writer )
+		{
+			base.Serialize( writer );
+
+			writer.Write( (int) 0 ); // version
+		}
+
+		public override void Deserialize( GenericReader reader )
+		{
+			base.Deserialize( reader );
+
+			int version = reader.ReadInt();
+		}
+		
+	}
+}
