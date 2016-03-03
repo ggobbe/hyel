@@ -1,3 +1,10 @@
+
+/*Scriptiz 9/11/07 : Ajouts pour le livre de barde (ligne 160)
+    Plume 11/02/08: Retrait des bardes
+    Plume 12/02/08: Modification pour RC2
+ 
+ */
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,13 +13,20 @@ using Server.Spells.Chivalry;
 using Server.Items;
 using Server.Spells.Necromancy;
 using Server.Spells.Ninjitsu;
+using Server.Spells.Barde;
+using Server.Spells.Spellweaving;
+using Server.Spells.Druid;
+using Server.Spells.Cleric;
+using Server.Spells.Daemonic;
+using Server.Spells.DarkPaladin;
+using Server.Spells.Magister;
 
 namespace Server.Spells
 {
 	public class SpellRegistry
 	{
-		private static Type[] m_Types = new Type[700];
-		private static int m_Count;
+        private static Type[] m_Types = new Type[999];
+        private static int m_Count;
 
 		public static Type[] Types
 		{
@@ -135,20 +149,26 @@ namespace Server.Spells
 
 		private static string[] m_CircleNames = new string[]
 			{
-				"First",
-				"Second",
-				"Third",
-				"Fourth",
-				"Fifth",
-				"Sixth",
-				"Seventh",
-				"Eighth",
-				"Necromancy",
-				"Chivalry",
-				"Bushido",
-				"Ninjitsu",
-				"Spellweaving"
-			};
+                "First",
+                "Second",
+                "Third",
+                "Fourth",
+                "Fifth",
+                "Sixth",
+                "Seventh",
+                "Eighth",
+                "Necromancy",
+                "Daemonic",
+                "Chivalry",
+                "DarkPaladin",
+                "Barde",             // Scriptiz (livre de barde)
+                "Bushido",
+                "Ninjitsu",
+                "Spellweaving",
+                "Druid",
+                "Cleric",
+                "Magister",
+            };
 
 		public static Spell NewSpell( string name, Mobile caster, Item scroll )
 		{

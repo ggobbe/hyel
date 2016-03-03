@@ -4,16 +4,8 @@ using Server.Items;
 
 namespace Server.Items
 {
-	public class Katyl : BaseReagent, ICommodity
+	public class Katyl : BaseReagent
 	{
-
-		string ICommodity.Description
-		{
-			get
-			{
-				return String.Format( "{0} Katyl", Amount );
-			}
-		}
 
 		[Constructable]
 		public Katyl() : this( 1 )
@@ -54,17 +46,9 @@ namespace Server.Items
 	}
 	
 	
-	public class Onax : BaseReagent, ICommodity
+	public class Onax : BaseReagent
 	{
-
-		string ICommodity.Description
-		{
-			get
-			{
-				return String.Format( "{0} Onax", Amount );
-			}
-		}
-
+        
 		[Constructable]
 		public Onax() : this( 1 )
 		{

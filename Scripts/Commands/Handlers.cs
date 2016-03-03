@@ -1,3 +1,7 @@
+/* 
+ Modification du save Administrator pour Seer
+*/
+
 using System;
 using System.IO;
 using System.Text;
@@ -17,6 +21,7 @@ using Server.Targeting;
 using Server.Targets;
 using Server.Gumps;
 using Server.Commands.Generic;
+using Server.Diagnostics;
 
 namespace Server.Commands
 {
@@ -24,7 +29,7 @@ namespace Server.Commands
 	{
 		public static void Initialize()
 		{
-			CommandSystem.Prefix = "[";
+			CommandSystem.Prefix = ".";
 
 			Register( "Go", AccessLevel.Counselor, new CommandEventHandler( Go_OnCommand ) );
 

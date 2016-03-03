@@ -39,7 +39,7 @@ namespace Server.Mobiles
 
 			AddItem( new LightSource() );
 
-			PackItem( new Bone( 3 ) );
+			PackItem( new Bones( 3 ) );
 			// TODO: Body parts
 		}
 

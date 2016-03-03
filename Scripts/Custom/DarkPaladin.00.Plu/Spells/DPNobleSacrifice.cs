@@ -145,7 +145,7 @@ namespace Server.Spells.DarkPaladin
 							sendEffect = true;
 						}
 
-						if ( EvilOmenSpell.CheckEffect( m ) )
+						if ( EvilOmenSpell.TryEndEffect ( m ) )
 							sendEffect = true;
 
 						if ( StrangleSpell.RemoveCurse( m ) )

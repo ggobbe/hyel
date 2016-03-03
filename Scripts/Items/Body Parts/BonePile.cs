@@ -37,7 +37,7 @@ namespace Server.Items
 			if ( Deleted || !from.CanSee( this ) )
 				return false;
 
-			base.ScissorHelper( from, new Bone(), Utility.RandomMinMax( 10, 15 ) );
+			base.ScissorHelper( from, new Bones(), Utility.RandomMinMax( 10, 15 ) );
 
 			return true;
 		}

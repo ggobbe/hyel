@@ -43,7 +43,7 @@ namespace Server.Mobiles
 			// TODO: Fame/Karma
 
 			PackGem( 2 );
-			PackItem( new Bone() );
+			PackItem( new Bones() );
 		}
 
 		public override void GenerateLoot()

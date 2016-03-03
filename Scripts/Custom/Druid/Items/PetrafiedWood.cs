@@ -4,16 +4,8 @@ using Server.Items;
 
 namespace Server.Items
 {
-   public class PetrafiedWood : BaseReagent, ICommodity
-   {
-      string ICommodity.Description
-      {
-         get
-         {
-            return String.Format( "{0} petrified wood", Amount );
-         }
-      }
-
+   public class PetrafiedWood : BaseReagent
+   {     
       [Constructable]
       public PetrafiedWood() : this( 1 )
       {

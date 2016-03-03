@@ -41,7 +41,7 @@ namespace Server.Mobiles
 
 			VirtualArmor = 45;
 
-			PackItem( new Bone( 3 ) );
+			PackItem( new Bones( 3 ) );
 			PackItem( new FertileDirt( Utility.RandomMinMax( 1, 5 ) ) );
 
 			if ( Core.ML && Utility.RandomDouble() < .33 )

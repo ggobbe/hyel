@@ -17,11 +17,15 @@ namespace Server.Items
 		Valorite,
 
 		RegularLeather = 101,
-		SpinedLeather,
-		HornedLeather,
-		BarbedLeather,
+        SpinedLeather,
+        HornedLeather,
+        BarbedLeather,
+        AmphibianLeather,
+        DaemonLeather,
+        DarkLeather,
+        ReptileLeather,
 
-		RedScales = 201,
+        RedScales = 201,
 		YellowScales,
 		BlackScales,
 		GreenScales,
@@ -34,8 +38,13 @@ namespace Server.Items
 		YewWood,
 		Heartwood,
 		Bloodwood,
-		Frostwood
-	}
+		Frostwood,
+
+        RegularBones = 401,
+        DaemonBones,
+        OgreBones,
+        DragonBones,
+    }
 
 	public enum CraftResourceType
 	{
@@ -43,8 +52,9 @@ namespace Server.Items
 		Metal,
 		Leather,
 		Scales,
-		Wood
-	}
+		Wood,
+        Bones
+    }
 
 	public class CraftAttributeInfo
 	{
@@ -106,11 +116,12 @@ namespace Server.Items
 
 		public static readonly CraftAttributeInfo Blank;
 		public static readonly CraftAttributeInfo DullCopper, ShadowIron, Copper, Bronze, Golden, Agapite, Verite, Valorite;
-		public static readonly CraftAttributeInfo Spined, Horned, Barbed;
-		public static readonly CraftAttributeInfo RedScales, YellowScales, BlackScales, GreenScales, WhiteScales, BlueScales;
-		public static readonly CraftAttributeInfo OakWood, AshWood, YewWood, Heartwood, Bloodwood, Frostwood;
+        public static readonly CraftAttributeInfo Spined, Horned, Barbed, Amphibian, Daemon, Dark, Reptile;
+        public static readonly CraftAttributeInfo RedScales, YellowScales, BlackScales, GreenScales, WhiteScales, BlueScales;
+        public static readonly CraftAttributeInfo OakWood, AshWood, YewWood, Heartwood, Bloodwood, Frostwood;
+        public static readonly CraftAttributeInfo DaemonBones, OgreBones, DragonBones;
 
-		static CraftAttributeInfo()
+        static CraftAttributeInfo()
 		{
 			Blank = new CraftAttributeInfo();
 
@@ -344,7 +355,55 @@ namespace Server.Items
 				barbed.RunicMaxIntensity = 100;
 			}
 
-			CraftAttributeInfo red = RedScales = new CraftAttributeInfo();
+            CraftAttributeInfo amphibian = Amphibian = new CraftAttributeInfo();
+
+            amphibian.ArmorPhysicalResist = 2;
+            amphibian.ArmorFireResist = 1;
+            amphibian.ArmorColdResist = 2;
+            amphibian.ArmorPoisonResist = 3;
+            amphibian.ArmorEnergyResist = 4;
+            amphibian.RunicMinAttributes = 4;
+            amphibian.RunicMaxAttributes = 5;
+            amphibian.RunicMinIntensity = 40;
+            amphibian.RunicMaxIntensity = 100;
+
+            CraftAttributeInfo daemon = Daemon = new CraftAttributeInfo();
+
+            daemon.ArmorPhysicalResist = 2;
+            daemon.ArmorFireResist = 1;
+            daemon.ArmorColdResist = 2;
+            daemon.ArmorPoisonResist = 3;
+            daemon.ArmorEnergyResist = 4;
+            daemon.RunicMinAttributes = 4;
+            daemon.RunicMaxAttributes = 5;
+            daemon.RunicMinIntensity = 40;
+            daemon.RunicMaxIntensity = 100;
+
+            CraftAttributeInfo dark = Dark = new CraftAttributeInfo();
+
+            dark.ArmorPhysicalResist = 2;
+            dark.ArmorFireResist = 1;
+            dark.ArmorColdResist = 2;
+            dark.ArmorPoisonResist = 3;
+            dark.ArmorEnergyResist = 4;
+            dark.RunicMinAttributes = 4;
+            dark.RunicMaxAttributes = 5;
+            dark.RunicMinIntensity = 40;
+            dark.RunicMaxIntensity = 100;
+
+            CraftAttributeInfo reptile = Reptile = new CraftAttributeInfo();
+
+            reptile.ArmorPhysicalResist = 2;
+            reptile.ArmorFireResist = 1;
+            reptile.ArmorColdResist = 2;
+            reptile.ArmorPoisonResist = 3;
+            reptile.ArmorEnergyResist = 4;
+            reptile.RunicMinAttributes = 4;
+            reptile.RunicMaxAttributes = 5;
+            reptile.RunicMinIntensity = 40;
+            reptile.RunicMaxIntensity = 100;
+
+            CraftAttributeInfo red = RedScales = new CraftAttributeInfo();
 
 			red.ArmorFireResist = 10;
 			red.ArmorColdResist = -3;
@@ -374,9 +433,33 @@ namespace Server.Items
 			blue.ArmorPoisonResist = -3;
 			blue.ArmorEnergyResist = 10;
 
-			//public static readonly CraftAttributeInfo OakWood, AshWood, YewWood, Heartwood, Bloodwood, Frostwood;
+            CraftAttributeInfo daemonbones = DaemonBones = new CraftAttributeInfo();
+            daemonbones.ArmorPhysicalResist = 5;
+            daemonbones.ArmorLuck = 40;
+            daemonbones.RunicMinAttributes = 1;
+            daemonbones.RunicMaxAttributes = 3;
+            daemonbones.RunicMinIntensity = 80;
+            daemonbones.RunicMaxIntensity = 110;
 
-			CraftAttributeInfo oak = OakWood = new CraftAttributeInfo();
+            CraftAttributeInfo ogrebones = OgreBones = new CraftAttributeInfo();
+            ogrebones.ArmorPhysicalResist = 5;
+            ogrebones.ArmorLuck = 40;
+            ogrebones.RunicMinAttributes = 1;
+            ogrebones.RunicMaxAttributes = 3;
+            ogrebones.RunicMinIntensity = 80;
+            ogrebones.RunicMaxIntensity = 110;
+
+            CraftAttributeInfo dragonbones = DragonBones = new CraftAttributeInfo();
+            dragonbones.ArmorPhysicalResist = 5;
+            dragonbones.ArmorLuck = 40;
+            dragonbones.RunicMinAttributes = 1;
+            dragonbones.RunicMaxAttributes = 3;
+            dragonbones.RunicMinIntensity = 80;
+            dragonbones.RunicMaxIntensity = 110;
+
+            //public static readonly CraftAttributeInfo OakWood, AshWood, YewWood, Heartwood, Bloodwood, Frostwood;
+
+            CraftAttributeInfo oak = OakWood = new CraftAttributeInfo();
 
 			CraftAttributeInfo ash = AshWood = new CraftAttributeInfo();
 
@@ -445,23 +528,35 @@ namespace Server.Items
 				new CraftResourceInfo( 0x8B0, 1053134, "Blue Scales",	CraftAttributeInfo.BlueScales,		CraftResource.BlueScales,		typeof( BlueScales ) )
 			};
 
-		private static CraftResourceInfo[] m_LeatherInfo = new CraftResourceInfo[]
-			{
-				new CraftResourceInfo( 0x000, 1049353, "Normal",		CraftAttributeInfo.Blank,		CraftResource.RegularLeather,	typeof( Leather ),			typeof( Hides ) ),
-				new CraftResourceInfo( 0x283, 1049354, "Spined",		CraftAttributeInfo.Spined,		CraftResource.SpinedLeather,	typeof( SpinedLeather ),	typeof( SpinedHides ) ),
-				new CraftResourceInfo( 0x227, 1049355, "Horned",		CraftAttributeInfo.Horned,		CraftResource.HornedLeather,	typeof( HornedLeather ),	typeof( HornedHides ) ),
-				new CraftResourceInfo( 0x1C1, 1049356, "Barbed",		CraftAttributeInfo.Barbed,		CraftResource.BarbedLeather,	typeof( BarbedLeather ),	typeof( BarbedHides ) )
-			};
+        private static CraftResourceInfo[] m_AOSLeatherInfo = new CraftResourceInfo[]
+            {
+                new CraftResourceInfo( 0x000, 1049353, "Normal",        CraftAttributeInfo.Blank,       CraftResource.RegularLeather,   typeof( Leather ),          typeof( Hides ) ),
+                new CraftResourceInfo( 0x8AC, 1049354, "Spined",        CraftAttributeInfo.Spined,      CraftResource.SpinedLeather,    typeof( SpinedLeather ),    typeof( SpinedHides ) ),
+                new CraftResourceInfo( 0x845, 1049355, "Horned",        CraftAttributeInfo.Horned,      CraftResource.HornedLeather,    typeof( HornedLeather ),    typeof( HornedHides ) ),
+                new CraftResourceInfo( 0x851, 1049356, "Barbed",        CraftAttributeInfo.Barbed,      CraftResource.BarbedLeather,    typeof( BarbedLeather ),    typeof( BarbedHides ) ),
+                //ajout cuir
+                new CraftResourceInfo( 0x4B, 1063604, "Amphibian",      CraftAttributeInfo.Amphibian,       CraftResource.AmphibianLeather, typeof( AmphibianLeather ), typeof( AmphibianHides ) ),
+                new CraftResourceInfo( 0x24, 1063609, "Daemon",     CraftAttributeInfo.Daemon,      CraftResource.DaemonLeather,    typeof( DaemonLeather ),    typeof( DaemonHides ) ),
+                new CraftResourceInfo( 0x403, 1063614, "Dark",      CraftAttributeInfo.Dark,        CraftResource.DarkLeather,  typeof( DarkLeather ),  typeof( DarkHides ) ),
 
-		private static CraftResourceInfo[] m_AOSLeatherInfo = new CraftResourceInfo[]
-			{
-				new CraftResourceInfo( 0x000, 1049353, "Normal",		CraftAttributeInfo.Blank,		CraftResource.RegularLeather,	typeof( Leather ),			typeof( Hides ) ),
-				new CraftResourceInfo( 0x8AC, 1049354, "Spined",		CraftAttributeInfo.Spined,		CraftResource.SpinedLeather,	typeof( SpinedLeather ),	typeof( SpinedHides ) ),
-				new CraftResourceInfo( 0x845, 1049355, "Horned",		CraftAttributeInfo.Horned,		CraftResource.HornedLeather,	typeof( HornedLeather ),	typeof( HornedHides ) ),
-				new CraftResourceInfo( 0x851, 1049356, "Barbed",		CraftAttributeInfo.Barbed,		CraftResource.BarbedLeather,	typeof( BarbedLeather ),	typeof( BarbedHides ) ),
-			};
+               new CraftResourceInfo ( 0x59A, 1063619, "Reptile",       CraftAttributeInfo.Reptile, CraftResource.ReptileLeather,   typeof( ReptileLeather ),   typeof( ReptileHides ) ),
+            };
 
-		private static CraftResourceInfo[] m_WoodInfo = new CraftResourceInfo[]
+        private static CraftResourceInfo[] m_LeatherInfo = new CraftResourceInfo[]
+            {
+                new CraftResourceInfo( 0x000, 1049353, "Normal",        CraftAttributeInfo.Blank,       CraftResource.RegularLeather,   typeof( Leather ),          typeof( Hides ) ),
+                new CraftResourceInfo( 0x283, 1049354, "Spined",        CraftAttributeInfo.Spined,      CraftResource.SpinedLeather,    typeof( SpinedLeather ),    typeof( SpinedHides ) ),
+                new CraftResourceInfo( 0x227, 1049355, "Horned",        CraftAttributeInfo.Horned,      CraftResource.HornedLeather,    typeof( HornedLeather ),    typeof( HornedHides ) ),
+                new CraftResourceInfo( 0x1C1, 1049356, "Barbed",        CraftAttributeInfo.Barbed,      CraftResource.BarbedLeather,    typeof( BarbedLeather ),    typeof( BarbedHides ) ),
+                                //ajout cuir
+                new CraftResourceInfo( 0x4B, 1063600, "Amphibian",      CraftAttributeInfo.Amphibian,       CraftResource.AmphibianLeather, typeof( AmphibianLeather ), typeof( AmphibianHides ) ),
+                new CraftResourceInfo( 0x24, 1063609, "Daemon",     CraftAttributeInfo.Daemon,      CraftResource.DaemonLeather,    typeof( DaemonLeather ),    typeof( DaemonHides ) ),
+                new CraftResourceInfo( 0x403, 1063614, "Dark",      CraftAttributeInfo.Dark,        CraftResource.DarkLeather,  typeof( DarkLeather ),  typeof( DarkHides ) ),
+                new CraftResourceInfo ( 0x59A, 1063619, "Reptile",      CraftAttributeInfo.Reptile, CraftResource.ReptileLeather,   typeof( ReptileLeather ),   typeof( ReptileHides ) ),
+
+            };
+
+        private static CraftResourceInfo[] m_WoodInfo = new CraftResourceInfo[]
 			{
 				new CraftResourceInfo( 0x000, 1011542, "Normal",		CraftAttributeInfo.Blank,		CraftResource.RegularWood,	typeof( Log ),			typeof( Board ) ),
 				new CraftResourceInfo( 0x7DA, 1072533, "Oak",			CraftAttributeInfo.OakWood,		CraftResource.OakWood,		typeof( OakLog ),		typeof( OakBoard ) ),
@@ -472,13 +567,21 @@ namespace Server.Items
 				new CraftResourceInfo( 0x47F, 1072539, "Frostwood",		CraftAttributeInfo.Frostwood,	CraftResource.Frostwood,	typeof( FrostwoodLog ),	typeof( FrostwoodBoard ) )
 			};
 
-		/// <summary>
-		/// Returns true if '<paramref name="resource"/>' is None, Iron, RegularLeather or RegularWood. False if otherwise.
-		/// </summary>
-		public static bool IsStandard( CraftResource resource )
+        private static CraftResourceInfo[] m_BonesInfo = new CraftResourceInfo[]
+            {
+                new CraftResourceInfo( 0x000, 1023786, "Normal",        CraftAttributeInfo.Blank,       CraftResource.RegularBones, typeof( Bones )),
+                new CraftResourceInfo( 0x24, 1063653, "Daemon",     CraftAttributeInfo.DaemonBones,     CraftResource.DaemonBones,  typeof( DaemonBones )),
+                 new CraftResourceInfo( 0xCA, 1063655, "Ogre",      CraftAttributeInfo.OgreBones,       CraftResource.OgreBones,    typeof( OgreBones )),
+                 new CraftResourceInfo( 0x60F, 1063657, "Dragon",       CraftAttributeInfo.DragonBones,     CraftResource.DragonBones,  typeof( DragonBones )),
+            };
+
+        /// <summary>
+        /// Returns true if '<paramref name="resource"/>' is None, Iron, RegularLeather or RegularWood. False if otherwise.
+        /// </summary>
+        public static bool IsStandard( CraftResource resource )
 		{
-			return ( resource == CraftResource.None || resource == CraftResource.Iron || resource == CraftResource.RegularLeather || resource == CraftResource.RegularWood );
-		}
+			return ( resource == CraftResource.None || resource == CraftResource.Iron || resource == CraftResource.RegularLeather || resource == CraftResource.RegularWood || resource == CraftResource.RegularBones);
+        }
 
 		private static Dictionary<Type, CraftResource> m_TypeTable;
 
@@ -522,9 +625,11 @@ namespace Server.Items
 				case CraftResourceType.Leather: list = Core.AOS ? m_AOSLeatherInfo : m_LeatherInfo; break;
 				case CraftResourceType.Scales: list = m_ScaleInfo; break;
 				case CraftResourceType.Wood: list = m_WoodInfo; break;
-			}
+                case CraftResourceType.Bones: list = m_BonesInfo; break;
 
-			if ( list != null )
+            }
+
+            if ( list != null )
 			{
 				int index = GetIndex( resource );
 
@@ -543,16 +648,19 @@ namespace Server.Items
 			if ( resource >= CraftResource.Iron && resource <= CraftResource.Valorite )
 				return CraftResourceType.Metal;
 
-			if ( resource >= CraftResource.RegularLeather && resource <= CraftResource.BarbedLeather )
-				return CraftResourceType.Leather;
+            //modif pour cuirs
+            if (resource >= CraftResource.RegularLeather && resource <= CraftResource.DarkLeather)
+                return CraftResourceType.Leather;
 
-			if ( resource >= CraftResource.RedScales && resource <= CraftResource.BlueScales )
+            if ( resource >= CraftResource.RedScales && resource <= CraftResource.BlueScales )
 				return CraftResourceType.Scales;
 
 			if ( resource >= CraftResource.RegularWood && resource <= CraftResource.Frostwood )
 				return CraftResourceType.Wood;
+            if (resource >= CraftResource.RegularBones && resource <= CraftResource.DragonBones)
+                return CraftResourceType.Bones;
 
-			return CraftResourceType.None;
+            return CraftResourceType.None;
 		}
 
 		/// <summary>
@@ -566,9 +674,11 @@ namespace Server.Items
 				case CraftResourceType.Leather: return CraftResource.RegularLeather;
 				case CraftResourceType.Scales: return CraftResource.RedScales;
 				case CraftResourceType.Wood: return CraftResource.RegularWood;
-			}
+                case CraftResourceType.Bones: return CraftResource.RegularBones;
 
-			return CraftResource.None;
+            }
+
+            return CraftResource.None;
 		}
 
 		/// <summary>
@@ -614,63 +724,111 @@ namespace Server.Items
 			return ( info == null ? String.Empty : info.Name );
 		}
 
-		/// <summary>
-		/// Returns the <see cref="CraftResource"/> value which represents '<paramref name="info"/>' -or- CraftResource.None if unable to convert.
-		/// </summary>
-		public static CraftResource GetFromOreInfo( OreInfo info )
+        /// <summary>
+        /// Returns the <see cref="CraftResource"/> value which represents '<paramref name="info"/>' -or- CraftResource.None if unable to convert.
+        /// </summary>
+        public static CraftResource GetFromOreInfo(OreInfo info)
+        {
+            {
+                switch (info.Level)
+                {
+                    case 0:
+                        return CraftResource.RegularLeather;
+                        
+                    case 1:
+                        return CraftResource.SpinedLeather;
+                        
+                    case 2:
+                        return CraftResource.HornedLeather;
+                    case 3:
+                        return CraftResource.BarbedLeather;
+                    case 4:
+                        return CraftResource.AmphibianLeather;
+                    case 5:
+                        return CraftResource.DaemonLeather;
+                    case 6:
+                        return CraftResource.DarkLeather;
+                        
+                    case 7:
+                        return CraftResource.ReptileLeather;
+                        
+                    case 8:
+                        return CraftResource.DaemonBones;
+                        
+                    case 9:
+                        return CraftResource.OgreBones;
+                        
+                    case 10:
+                        return CraftResource.DragonBones;
+                        
+
+
+                    default:
+                        return CraftResource.None;
+                        
+                }
+            }
+
+          
+
+
+            if (info.Level == 0)
+                return CraftResource.Iron;
+            else if (info.Level == 1)
+                return CraftResource.DullCopper;
+            else if (info.Level == 2)
+                return CraftResource.ShadowIron;
+            else if (info.Level == 3)
+                return CraftResource.Copper;
+            else if (info.Level == 4)
+                return CraftResource.Bronze;
+            else if (info.Level == 5)
+                return CraftResource.Gold;
+            else if (info.Level == 6)
+                return CraftResource.Agapite;
+            else if (info.Level == 7)
+                return CraftResource.Verite;
+            else if (info.Level == 8)
+                return CraftResource.Valorite;
+            return GetFromOreInfo(info);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="CraftResource"/> value which represents '<paramref name="info"/>', using '<paramref name="material"/>' to help resolve leather OreInfo instances.
+        /// </summary>
+        public static CraftResource GetFromOreInfo( OreInfo info, ArmorMaterialType material )
 		{
-			if ( info.Name.IndexOf( "Spined" ) >= 0 )
-				return CraftResource.SpinedLeather;
-			else if ( info.Name.IndexOf( "Horned" ) >= 0 )
-				return CraftResource.HornedLeather;
-			else if ( info.Name.IndexOf( "Barbed" ) >= 0 )
-				return CraftResource.BarbedLeather;
-			else if ( info.Name.IndexOf( "Leather" ) >= 0 )
-				return CraftResource.RegularLeather;
+            if (material == ArmorMaterialType.Studded || material == ArmorMaterialType.Leather || material == ArmorMaterialType.Spined ||
+                material == ArmorMaterialType.Horned || material == ArmorMaterialType.Barbed || material == ArmorMaterialType.Amphibian || material == ArmorMaterialType.Daemon || material == ArmorMaterialType.Dark || material == ArmorMaterialType.Reptile || material == ArmorMaterialType.DaemonBones || material == ArmorMaterialType.OgreBones || material == ArmorMaterialType.DragonBones)
+            {
+                if (info.Level == 0)
+                    return CraftResource.RegularLeather;
+                else if (info.Level == 1)
+                    return CraftResource.SpinedLeather;
+                else if (info.Level == 2)
+                    return CraftResource.HornedLeather;
+                else if (info.Level == 3)
+                    return CraftResource.BarbedLeather;
+                else if (info.Level == 4)
+                    return CraftResource.AmphibianLeather;
+                else if (info.Level == 5)
+                    return CraftResource.DaemonLeather;
+                else if (info.Level == 6)
+                    return CraftResource.DarkLeather;
+                else if (info.Level == 7)
+                    return CraftResource.ReptileLeather;
+                else if (info.Level == 8)
+                    return CraftResource.DaemonBones;
+                else if (info.Level == 9)
+                    return CraftResource.OgreBones;
+                else if (info.Level == 10)
+                    return CraftResource.DragonBones;
 
-			if ( info.Level == 0 )
-				return CraftResource.Iron;
-			else if ( info.Level == 1 )
-				return CraftResource.DullCopper;
-			else if ( info.Level == 2 )
-				return CraftResource.ShadowIron;
-			else if ( info.Level == 3 )
-				return CraftResource.Copper;
-			else if ( info.Level == 4 )
-				return CraftResource.Bronze;
-			else if ( info.Level == 5 )
-				return CraftResource.Gold;
-			else if ( info.Level == 6 )
-				return CraftResource.Agapite;
-			else if ( info.Level == 7 )
-				return CraftResource.Verite;
-			else if ( info.Level == 8 )
-				return CraftResource.Valorite;
+                else
+                    return CraftResource.None;
+            }
 
-			return CraftResource.None;
-		}
-
-		/// <summary>
-		/// Returns the <see cref="CraftResource"/> value which represents '<paramref name="info"/>', using '<paramref name="material"/>' to help resolve leather OreInfo instances.
-		/// </summary>
-		public static CraftResource GetFromOreInfo( OreInfo info, ArmorMaterialType material )
-		{
-			if ( material == ArmorMaterialType.Studded || material == ArmorMaterialType.Leather || material == ArmorMaterialType.Spined ||
-				material == ArmorMaterialType.Horned || material == ArmorMaterialType.Barbed )
-			{
-				if ( info.Level == 0 )
-					return CraftResource.RegularLeather;
-				else if ( info.Level == 1 )
-					return CraftResource.SpinedLeather;
-				else if ( info.Level == 2 )
-					return CraftResource.HornedLeather;
-				else if ( info.Level == 3 )
-					return CraftResource.BarbedLeather;
-
-				return CraftResource.None;
-			}
-
-			return GetFromOreInfo( info );
+            return GetFromOreInfo( info );
 		}
 	}
 

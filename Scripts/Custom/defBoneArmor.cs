@@ -100,10 +100,10 @@ namespace Server.Engines.Craft
             // Set the overridable material
             SetSubRes(typeof(Bones), 1063650);
 
-            AddSubRes(typeof(Bones), 1063650, 00.0, 0, 0, 1049064, 1063652);
-            AddSubRes(typeof(DaemonBones), 1063651, 65.0, 0, 0, 1049064, 1063652);
-            AddSubRes(typeof(OgreBones), 1063654, 65.0, 0, 0, 1049064, 1063652);
-            AddSubRes(typeof(DragonBones), 1063656, 65.0, 0, 0, 1049064, 1063652);
+            AddSubRes(typeof(Bones), 1063650, 00.0, 1049064, 1063652);
+            AddSubRes(typeof(DaemonBones), 1063651, 65.0, 1049064, 1063652);
+            AddSubRes(typeof(OgreBones), 1063654, 65.0, 1049064, 1063652);
+            AddSubRes(typeof(DragonBones), 1063656, 65.0,  1049064, 1063652);
 
             MarkOption = true;
             Repair = Core.AOS;

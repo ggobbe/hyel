@@ -44,15 +44,22 @@ namespace Server.Items
 	{
 		Cloth,
 		Leather,
-		Studded,
-		Bone,
-		Spined,
-		Horned,
-		Barbed,
-		Ringmail,
-		Chainmail,
-		Plate,
-		Dragon	// On OSI, Dragon is seen and considered its own type.
+        Studded,
+        Bone,
+        Spined,
+        Horned,
+        Barbed,
+        Amphibian,
+        Daemon,
+        Dark,
+        Reptile,
+        Ringmail,
+        Chainmail,
+        Plate,
+        DaemonBones,
+        OgreBones,
+        DragonBones,
+        Dragon //On OSI, Dragon is seen and considered its own type.
 	}
 
 	public enum ArmorMeditationAllowance

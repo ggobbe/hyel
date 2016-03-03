@@ -43,7 +43,7 @@ namespace Server.Mobiles
 			VirtualArmor = 40;
 
 			PackItem( new SulfurousAsh( 3 ) );
-			PackItem( new Bone() );
+			PackItem( new Bones() );
 			// TODO: body parts, armour
 		}
 

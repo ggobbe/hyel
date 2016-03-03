@@ -3,8 +3,8 @@ using Server;
 
 namespace Server.Items
 {
-	public class FertileDirt : Item
-	{
+	public class FertileDirt : BaseReagent
+    {
 		[Constructable]
 		public FertileDirt() : this( 1 )
 		{

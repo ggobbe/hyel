@@ -106,7 +106,7 @@ namespace Server.Engines.MLQuests.Definitions
 			public override bool ShowDetailed { get { return false; } }
 
 			public InternalObjective()
-				: base( 10, typeof( Bone ), 1074963 ) // (10) workable samples
+				: base( 10, typeof( Bones ), 1074963 ) // (10) workable samples
 			{
 			}
 		}

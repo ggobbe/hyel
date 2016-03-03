@@ -1,3 +1,9 @@
+/* 
+ * Scriptiz 9/11/07 : Ajout des sorts pour le livre de barde (ligne 128 à 146)
+ * Plume 14/02/08 : Retrait des sorts de bardes temporaire
+ * Plume 14/02/08 : Ajout des sorts de Spellweaver.
+ */
+
 using System;
 using Server;
 
@@ -110,8 +116,20 @@ namespace Server.Spells
 				if( Core.SE )
 					Register( 116, typeof( Necromancy.ExorcismSpell ) );
 
-				// Paladin abilities
-				Register( 200, typeof( Chivalry.CleanseByFireSpell ) );
+                // Necromancy spells 2
+                Register(130, typeof(Daemonic.DaemonicPoison));
+                Register(131, typeof(Daemonic.Proie));
+                Register(122, typeof(Daemonic.DrainVie));
+                Register(133, typeof(Daemonic.Feuzone));
+                Register(134, typeof(Daemonic.Carapace));
+                Register(135, typeof(Daemonic.LVampire));
+                Register(136, typeof(Daemonic.Maleficio));
+                Register(137, typeof(Daemonic.NueesD));
+                Register(138, typeof(Daemonic.Medusa));
+                Register(139, typeof(Daemonic.Draco));
+
+                // Paladin abilities
+                Register( 200, typeof( Chivalry.CleanseByFireSpell ) );
 				Register( 201, typeof( Chivalry.CloseWoundsSpell ) );
 				Register( 202, typeof( Chivalry.ConsecrateWeaponSpell ) );
 				Register( 203, typeof( Chivalry.DispelEvilSpell ) );
@@ -122,7 +140,39 @@ namespace Server.Spells
 				Register( 208, typeof( Chivalry.RemoveCurseSpell ) );
 				Register( 209, typeof( Chivalry.SacredJourneySpell ) );
 
-				if ( Core.SE )
+                // Paladin sombre
+                Register(220, typeof(DarkPaladin.DPCleanseByFireSpell));
+                Register(221, typeof(DarkPaladin.DPCloseWoundsSpell));
+                Register(222, typeof(DarkPaladin.DPConsecrateWeaponSpell));
+                Register(223, typeof(DarkPaladin.DPDispelEvilSpell));
+                Register(224, typeof(DarkPaladin.DPDivineFurySpell));
+                Register(225, typeof(DarkPaladin.DPEnemyOfOneSpell));
+                Register(226, typeof(DarkPaladin.DPHolyLightSpell));
+                Register(227, typeof(DarkPaladin.DPNobleSacrificeSpell));
+                Register(228, typeof(DarkPaladin.DPRemoveCurseSpell));
+                Register(229, typeof(DarkPaladin.DPSacredJourneySpell));
+
+                // Scriptiz[ (livre de barde) > rajout des sorts (sorts_barde)
+                // Barde abilities
+                Register(301, typeof(Barde.AffaiblissementSpell));
+                Register(302, typeof(Barde.AveuglementSpell));
+                Register(303, typeof(Barde.ParalysieSpell));
+                Register(304, typeof(Barde.DesarmerSpell));
+                Register(305, typeof(Barde.StridenceSpell));
+                Register(306, typeof(Barde.DecouragementSpell));
+                Register(307, typeof(Barde.RatsSpell));
+                Register(308, typeof(Barde.DrainSpell));
+                Register(309, typeof(Barde.ProtectionBSpell));
+                Register(310, typeof(Barde.AcuiteSpell));
+                Register(311, typeof(Barde.DiscretionSpell));
+                Register(312, typeof(Barde.CarapaceSpell));
+                Register(313, typeof(Barde.RetourSourcesSpell));
+                Register(314, typeof(Barde.CourageSpell));
+                Register(315, typeof(Barde.AttractionSpell));
+                Register(316, typeof(Barde.ApaisementSpell));
+                // ]Scriptiz
+
+                if ( Core.SE )
 				{
 					// Samurai abilities
 					Register( 400, typeof( Bushido.HonorableExecution ) );
@@ -162,7 +212,98 @@ namespace Server.Spells
 					Register( 614, typeof( Spellweaving.GiftOfLifeSpell ) );
 					//Register( 615, typeof( Spellweaving.ArcaneEmpowermentSpell ) );
 				}
-			}
+
+                // Druid Spells 
+                Register(701, typeof(Druid.ShieldOfEarthSpell));
+                Register(702, typeof(Druid.HollowReedSpell));
+                Register(703, typeof(Druid.PackOfBeastSpell));
+                Register(704, typeof(Druid.SpringOfLifeSpell));
+                Register(705, typeof(Druid.GraspingRootsSpell));
+                Register(706, typeof(Druid.BlendWithForestSpell));
+                Register(707, typeof(Druid.SwarmOfInsectsSpell));
+                Register(708, typeof(Druid.VolcanicEruptionSpell));
+                Register(709, typeof(Druid.TreefellowSpell));
+                Register(710, typeof(Druid.StoneCircleSpell));
+                Register(711, typeof(Druid.EnchantedGroveSpell));
+                Register(712, typeof(Druid.LureStoneSpell));
+                Register(713, typeof(Druid.NaturesPassageSpell));
+                Register(714, typeof(Druid.MushroomGatewaySpell));
+                Register(715, typeof(Druid.RestorativeSoilSpell));
+                Register(716, typeof(Druid.FireflySpell));
+                Register(717, typeof(Druid.NaturaliasSpell));
+                Register(718, typeof(Druid.Protspell));
+                Register(719, typeof(Druid.FoudreSpell));
+                Register(720, typeof(Druid.Viespell));
+                Register(721, typeof(Druid.Arbremorph));
+                Register(722, typeof(Druid.DruideFocusSpell));
+                Register(723, typeof(Druid.Tree4Spell));
+                Register(724, typeof(Druid.Somnispell));
+                Register(725, typeof(Druid.Insomnispell));
+                Register(726, typeof(Druid.ApparenceAnimaleSpell));
+                Register(727, typeof(Druid.AuraProtectionSpell));
+                Register(728, typeof(Druid.CreationFruitSpell));
+                Register(729, typeof(Druid.DonnerFaimSpell));
+                Register(730, typeof(Druid.flowerOfEarthSpell));
+                Register(731, typeof(Druid.MarqueSpell));
+                Register(732, typeof(Druid.MurCactusSpell));
+                Register(733, typeof(Druid.PortanceduVentSpell));
+                Register(734, typeof(Druid.RefluxSpell));
+                Register(735, typeof(Druid.RejetPoisonSpell));
+                Register(736, typeof(Druid.RejetPoisonMasseSpell));
+                Register(737, typeof(Druid.RevelationSpell));
+                Register(738, typeof(Druid.RonceVirulanteSpell));
+                Register(739, typeof(Druid.NaturalParalyzeFieldSpell));
+                Register(740, typeof(Druid.NaturalProtectionSpell));
+                Register(741, typeof(Druid.firevortexSpell));
+                Register(742, typeof(Druid.watervortexSpell));
+                Register(743, typeof(Druid.earthvortexSpell));
+                Register(744, typeof(Druid.airvortexSpell));
+                Register(745, typeof(Druid.MassAbeillesSpell));
+                Register(746, typeof(Druid.VaguedenergieSpell));
+                Register(747, typeof(Druid.AntiMatraFieldSpell));
+                Register(748, typeof(Druid.AntiMatraMassSpell));
+                Register(749, typeof(Druid.AntiMatraSpell));
+
+                //cleric spell 
+                Register(801, typeof(Cleric.AngelicFaithSpell));
+                Register(802, typeof(Cleric.BanishEvilSpell));
+                Register(803, typeof(Cleric.DampenSpiritSpell));
+                Register(804, typeof(Cleric.DivineFocusSpell));
+                Register(805, typeof(Cleric.HammerOfFaithSpell));
+                Register(806, typeof(Cleric.PurgeSpell));
+                Register(807, typeof(Cleric.ResurectionSpell));
+                Register(808, typeof(Cleric.SacredBoonSpell));
+                Register(809, typeof(Cleric.SacrificeSpell));
+                Register(810, typeof(Cleric.SmiteSpell));
+                Register(811, typeof(Cleric.TouchOfLifeSpell));
+                Register(812, typeof(Cleric.TrialByFireSpell));
+                Register(813, typeof(Cleric.LumiereSpell));
+                Register(814, typeof(Cleric.BeneSpell));
+                Register(815, typeof(Cleric.repSpell));
+                Register(816, typeof(Cleric.SanctuaireSpell));
+                Register(817, typeof(Cleric.ImmobileSpell));
+                Register(818, typeof(Cleric.BouclierSpell));
+                Register(819, typeof(Cleric.MontureSpell));
+                Register(820, typeof(Cleric.RobeSpell));
+                Register(821, typeof(Cleric.AppelSpell));
+                Register(822, typeof(Cleric.AppelsSpell));
+                Register(823, typeof(Cleric.InviteSpell));
+                Register(824, typeof(Cleric.ResutousSpell));
+                Register(825, typeof(Cleric.MassoinSpell));
+
+                // magister
+
+                Register(901, typeof(Magister.feuf));
+                Register(902, typeof(Magister.FireRain));
+                Register(903, typeof(Magister.foudre));
+                Register(904, typeof(Magister.eboul));
+                Register(905, typeof(Magister.glace));
+                Register(906, typeof(Magister.Comete));
+                Register(907, typeof(Magister.clonesp));
+                Register(908, typeof(Magister.meteor));
+                Register(909, typeof(Magister.meteorz));
+                Register(910, typeof(Magister.seisme));
+            }
 		}
 
 		public static void Register( int spellID, Type type )

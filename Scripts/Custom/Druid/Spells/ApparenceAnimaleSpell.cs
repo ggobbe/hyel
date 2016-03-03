@@ -47,7 +47,7 @@ namespace Server.Spells.Druid
 				Caster.SendLocalizedMessage( 1061633 ); // You cannot polymorph while in that form.
 				return false;
 			}
-			else if ( DisguiseGump.IsDisguised( Caster ) )
+			else if (DisguiseTimers.IsDisguised( Caster ) )
 			{
 				Caster.SendLocalizedMessage( 502167 ); // You cannot polymorph while disguised.
 				return false;
@@ -86,7 +86,7 @@ namespace Server.Spells.Druid
 			{
 				Caster.SendLocalizedMessage( 1061633 ); // You cannot polymorph while in that form.
 			}
-			else if ( DisguiseGump.IsDisguised( Caster ) )
+			else if (DisguiseTimers.IsDisguised( Caster ) )
 			{
 				Caster.SendLocalizedMessage( 502167 ); // You cannot polymorph while disguised.
 			}

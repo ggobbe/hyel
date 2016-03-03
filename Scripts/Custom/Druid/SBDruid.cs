@@ -1,23 +1,23 @@
-using System; 
-using System.Collections; 
+using System;
+using System.Collections.Generic;
 using Server.Items; 
 
 namespace Server.Mobiles 
 { 
    public class SBDruid : SBInfo 
-   { 
-      private ArrayList m_BuyInfo = new InternalBuyInfo(); 
-      private IShopSellInfo m_SellInfo = new InternalSellInfo(); 
+   {
+        private List<GenericBuyInfo> m_BuyInfo = new InternalBuyInfo();
+        private IShopSellInfo m_SellInfo = new InternalSellInfo(); 
 
       public SBDruid() 
       { 
       } 
 
-      public override IShopSellInfo SellInfo { get { return m_SellInfo; } } 
-      public override ArrayList BuyInfo { get { return m_BuyInfo; } } 
+      public override IShopSellInfo SellInfo { get { return m_SellInfo; } }
+        public override List<GenericBuyInfo> BuyInfo { get { return m_BuyInfo; } }
 
-      public class InternalBuyInfo : ArrayList 
-      { 
+        public class InternalBuyInfo : List<GenericBuyInfo>
+        { 
          public InternalBuyInfo() 
          { 
             /*Add( new GenericBuyInfo( "Appel de la Foret", typeof( BlendWithForestScroll ), 72, 144, 0x136C, 0 ) ); 

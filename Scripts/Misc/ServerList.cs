@@ -10,7 +10,7 @@ namespace Server.Misc
 {
 	public class ServerList
 	{
-		/* 
+        /* 
 		 * The default setting for Address, a value of 'null', will use your local IP address. If all of your local IP addresses
 		 * are private network addresses and AutoDetect is 'true' then RunUO will attempt to discover your public IP address
 		 * for you automatically.
@@ -38,10 +38,10 @@ namespace Server.Misc
 		 * firewalls) or specific IP adddresses you can do so by modifying the file SocketOptions.cs found in this directory.
 		 */
 
-		public static readonly string Address = null;
-		public static readonly string ServerName = "RunUO TC";
+        public static readonly string Address = "127.0.0.1";
+        public static readonly string ServerName = "Hyel Test";
 
-		public static readonly bool AutoDetect = true;
+        public static readonly bool AutoDetect = true;
 
 		public static void Initialize()
 		{

@@ -238,4 +238,142 @@ namespace Server.Items
 
 		
 	}
+    //ajout cuirs
+    [FlipableAttribute(0x1081, 0x1082)]
+    public class AmphibianLeather : BaseLeather
+    {
+        [Constructable]
+        public AmphibianLeather()
+            : this(1)
+        {
+        }
+
+        [Constructable]
+        public AmphibianLeather(int amount)
+            : base(CraftResource.AmphibianLeather, amount)
+        {
+        }
+
+        public AmphibianLeather(Serial serial)
+            : base(serial)
+        {
+        }
+        public override int LabelNumber { get { return 1063605; } }
+        public override void Serialize(GenericWriter writer)
+        {
+            base.Serialize(writer);
+
+            writer.Write((int)0); // version
+        }
+
+        public override void Deserialize(GenericReader reader)
+        {
+            base.Deserialize(reader);
+
+            int version = reader.ReadInt();
+        }
+    }
+    [FlipableAttribute(0x1081, 0x1082)]
+    public class DaemonLeather : BaseLeather
+    {
+        [Constructable]
+        public DaemonLeather()
+            : this(1)
+        {
+        }
+
+        [Constructable]
+        public DaemonLeather(int amount)
+            : base(CraftResource.DaemonLeather, amount)
+        {
+        }
+
+        public DaemonLeather(Serial serial)
+            : base(serial)
+        {
+        }
+        public override int LabelNumber { get { return 1063606; } }
+        public override void Serialize(GenericWriter writer)
+        {
+            base.Serialize(writer);
+
+            writer.Write((int)0); // version
+        }
+
+        public override void Deserialize(GenericReader reader)
+        {
+            base.Deserialize(reader);
+
+            int version = reader.ReadInt();
+        }
+    }
+    [FlipableAttribute(0x1081, 0x1082)]
+    public class DarkLeather : BaseLeather
+    {
+        [Constructable]
+        public DarkLeather()
+            : this(1)
+        {
+        }
+
+        [Constructable]
+        public DarkLeather(int amount)
+            : base(CraftResource.DarkLeather, amount)
+        {
+        }
+
+        public DarkLeather(Serial serial)
+            : base(serial)
+        {
+        }
+        public override int LabelNumber { get { return 1063611; } }
+        public override void Serialize(GenericWriter writer)
+        {
+            base.Serialize(writer);
+
+            writer.Write((int)0); // version
+        }
+
+        public override void Deserialize(GenericReader reader)
+        {
+            base.Deserialize(reader);
+
+            int version = reader.ReadInt();
+        }
+    }
+
+    [FlipableAttribute(0x1081, 0x1082)]
+    public class ReptileLeather : BaseLeather
+    {
+        [Constructable]
+        public ReptileLeather()
+            : this(1)
+        {
+        }
+
+        [Constructable]
+        public ReptileLeather(int amount)
+            : base(CraftResource.ReptileLeather, amount)
+        {
+        }
+
+        public ReptileLeather(Serial serial)
+            : base(serial)
+        {
+        }
+        public override int LabelNumber { get { return 1063616; } }
+        public override void Serialize(GenericWriter writer)
+        {
+            base.Serialize(writer);
+
+            writer.Write((int)0); // version
+        }
+
+        public override void Deserialize(GenericReader reader)
+        {
+            base.Deserialize(reader);
+
+            int version = reader.ReadInt();
+        }
+    }
 }

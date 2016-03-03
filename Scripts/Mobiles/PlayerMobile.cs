@@ -74,7 +74,26 @@ namespace Server.Mobiles
 		Black
 	}
 
-	public enum BlockMountType
+    // Scriptiz[ (SystemChat)
+    public enum CCCH
+    {
+        Open, Close, Ban
+    }
+    public enum CCCR
+    {
+        Open, Close, Ban
+    }
+    public enum CCCINFO
+    {
+        Open, Close, Ban
+    }
+    public enum CCC
+    {
+        Open, Close, Ban
+    }
+    // ]Scriptiz
+
+    public enum BlockMountType
 	{
 		None = -1,
 		Dazed = 1040024,
@@ -197,7 +216,28 @@ namespace Server.Mobiles
 
 		private int m_GuildMessageHue, m_AllianceMessageHue;
 
-		private List<Mobile> m_AutoStabled;
+        // Scriptiz@18/11/07 : Ajout de champs pour le possess
+        // TODO (quand j'aurai le temps) : faire vite des getteurs et setteurs et mettre en private
+        public Mobile m_PossessStorageMob;
+        public Mobile m_PossessMob;
+        public int m_CorpsMode = 0;
+
+        // Scriptiz@19/11/07 : Ajouts pour le system de chat
+        private CCCH m_ChanCH = CCCH.Open;
+        private CCCR m_ChanCR = CCCR.Open;
+        private CCCINFO m_ChanInfo = CCCINFO.Open;
+        private CCC m_ChanStaff = CCC.Open;
+
+        // Scriptobi, Scriptiz : ajout de la race propre à Hyel 
+        private HyelRace z_HyelRace;
+
+        // Scriptiz : ajout du choix de vie
+        private HyelClasse m_HyelClasse;
+
+        // Scriptiz : ajout de l'inconscience
+        private DateTime m_LastInconscience;
+
+        private List<Mobile> m_AutoStabled;
 		private List<Mobile> m_AllFollowers;
 		private List<Mobile> m_RecentlyReported;
 
@@ -374,10 +414,60 @@ namespace Server.Mobiles
 			set { CandyCane.SetToothAche( this, value ); }
 		}
 
-		#endregion
+        // Scriptiz : Etats des channels du chat
+        [CommandProperty(AccessLevel.GameMaster)]
+        public CCCH ChanCH
+        {
+            get { return m_ChanCH; }
+            set { m_ChanCH = value; }
+        }
+        [CommandProperty(AccessLevel.GameMaster)]
+        public CCCR ChanCR
+        {
+            get { return m_ChanCR; }
+            set { m_ChanCR = value; }
+        }
+        [CommandProperty(AccessLevel.GameMaster)]
+        public CCCINFO ChanInfo
+        {
+            get { return m_ChanInfo; }
+            set { m_ChanInfo = value; }
+        }
+        [CommandProperty(AccessLevel.GameMaster)]
+        public CCC ChanStaff
+        {
+            get { return m_ChanStaff; }
+            set { m_ChanStaff = value; }
+        }
 
-		#region PlayerFlags
-		public PlayerFlag Flags
+        // Scriptobi, Scriptiz : Race propre à Hyel
+        [CommandProperty(AccessLevel.GameMaster)]
+        public HyelRace HyelRace
+        {
+            get { return z_HyelRace; }
+            set { HyelRaceSystem.ChangeRace(this, value); z_HyelRace = value; }
+        }
+
+        // Scriptiz : Classe du joueur
+        [CommandProperty(AccessLevel.GameMaster)]
+        public HyelClasse HyelClasse
+        {
+            get { return m_HyelClasse; }
+            set { HyelClasseSystem.ChangeClasse(this, value); m_HyelClasse = value; }
+        }
+
+        // Scriptiz : Inconscience
+        [CommandProperty(AccessLevel.GameMaster)]
+        public DateTime LastInconscience
+        {
+            get { return m_LastInconscience; }
+            set { m_LastInconscience = value; }
+        }
+
+        #endregion
+
+        #region PlayerFlags
+        public PlayerFlag Flags
 		{
 			get{ return m_Flags; }
 			set{ m_Flags = value; }
@@ -941,7 +1031,14 @@ namespace Server.Mobiles
 
 			if( from is PlayerMobile )
 				((PlayerMobile)from).ClaimAutoStabledPets();
-		}
+
+            // Scriptiz : vérification du choix de la race et de vie fait à la première connexion
+            PlayerMobile pm = (PlayerMobile)from;
+            if ((pm.HyelRace == 0) || (pm.HyelClasse == 0))
+            {
+                pm.SendGump(new Gumps.HyelCharacterCreationGump(pm));
+            }
+        }
 
 		private bool m_NoDeltaRecursion;
 
@@ -2720,7 +2817,20 @@ namespace Server.Mobiles
 
 			RecoverAmmo();
 
-			return base.OnBeforeDeath();
+            /* Scriptiz : Ajouts pour le système d'inconscience */
+            if (LastInconscience.CompareTo(DateTime.Now - TimeSpan.FromSeconds(90)) > 0)
+            {
+                // Mort
+            }
+            else
+            {
+                // Inconscient
+            }
+
+            LastInconscience = DateTime.Now;
+            /* Scriptiz : Fin des ajouts pour le système d'inconscience */
+
+            return base.OnBeforeDeath();
 		}
 
 		private bool CheckInsuranceOnDeath( Item item )
@@ -3358,7 +3468,13 @@ namespace Server.Mobiles
 
 			switch ( version )
 			{
-				case 29:
+                case 30 :
+                    {
+                        m_LastInconscience = reader.ReadDeltaTime();
+                        z_HyelRace = (HyelRace)(reader.ReadEncodedInt());
+                        goto case 29;
+                    }
+                case 29:
 				{
 					if (reader.ReadBool())
 					{
@@ -3667,9 +3783,12 @@ namespace Server.Mobiles
 
 			base.Serialize( writer );
 
-			writer.Write( (int) 29 ); // version
+			writer.Write( (int) 30 ); // version
 
-			if (m_StuckMenuUses != null)
+            writer.WriteDeltaTime(m_LastInconscience);
+            writer.WriteEncodedInt((int)z_HyelRace);
+
+            if (m_StuckMenuUses != null)
 			{
 				writer.Write(true);
 

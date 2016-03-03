@@ -39,7 +39,7 @@ namespace Server.Mobiles
 			Karma = -4500;
 
 			VirtualArmor = 28;
-			PackItem( new Bone() );
+			PackItem( new Bones() );
 		}
 
 		public override void GenerateLoot()

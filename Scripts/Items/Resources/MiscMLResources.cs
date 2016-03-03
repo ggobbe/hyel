@@ -672,8 +672,8 @@ namespace Server.Items
 	}
 
 
-	public class WhitePearl : Item
-	{
+	public class WhitePearl : BaseReagent
+    {
 		[Constructable]
 		public WhitePearl()
 			: this( 1 )

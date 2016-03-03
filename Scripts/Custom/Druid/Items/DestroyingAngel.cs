@@ -4,16 +4,8 @@ using Server.Items;
 
 namespace Server.Items
 {
-   public class DestroyingAngel : BaseReagent, ICommodity
+   public class DestroyingAngel : BaseReagent
    {
-      string ICommodity.Description
-      {
-         get
-         {
-            return String.Format( "{0} destroying angel", Amount );
-         }
-      }
-
       [Constructable]
       public DestroyingAngel() : this( 1 )
       {

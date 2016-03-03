@@ -4,16 +4,8 @@ using Server.Items;
 
 namespace Server.Items
 {
-   public class SpringWater : BaseReagent, ICommodity
+   public class SpringWater : BaseReagent
    {
-      string ICommodity.Description
-      {
-         get
-         {
-            return String.Format( "{0} spring water", Amount );
-         }
-      }
-
       [Constructable]
       public SpringWater() : this( 1 )
       {

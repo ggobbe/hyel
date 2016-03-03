@@ -69,7 +69,7 @@ namespace Server.Spells.Cleric
 				Caster.SendMessage( "Vous ne pouvez rien faire dans cet etat." );
 				return false;
 			}
-			else if ( DisguiseGump.IsDisguised( Caster ) )
+			else if ( DisguiseTimers.IsDisguised( Caster ) )
 			{
 				Caster.SendMessage( "Vous ne pouvez rien faire dans cet etat.." );
 				return false;
@@ -98,7 +98,7 @@ namespace Server.Spells.Cleric
 			{
 				Caster.SendMessage( "Vous ne pouvez rien faire dans cet etat.." );
 			}
-			else if ( DisguiseGump.IsDisguised( Caster ) )
+			else if (DisguiseTimers.IsDisguised( Caster ) )
 			{
 				Caster.SendMessage( "Vous ne pouvez rien faire dans cet etat.." );
 			}

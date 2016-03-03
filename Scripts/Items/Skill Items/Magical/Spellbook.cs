@@ -17,8 +17,14 @@ namespace Server.Items
 		Paladin,
 		Ninja,
 		Samurai,
-		Arcanist
-	}
+		Arcanist,
+        Druid,
+        Clerc,
+        Magister,
+        DarkPaladin,
+        Bard,
+        Daemonic
+    }
 
 	public enum BookQuality
 	{
@@ -95,13 +101,19 @@ namespace Server.Items
 			switch ( e.Type )
 			{
 				default:
-				case 1: type = SpellbookType.Regular; break;
-				case 2: type = SpellbookType.Necromancer; break;
-				case 3: type = SpellbookType.Paladin; break;
-				case 4: type = SpellbookType.Ninja; break;
-				case 5: type = SpellbookType.Samurai; break;
-				case 6:	type = SpellbookType.Arcanist; break;
-			}
+                case 1: type = SpellbookType.Regular; break;
+                case 2: type = SpellbookType.Necromancer; break;
+                case 3: type = SpellbookType.Daemonic; break;
+                case 4: type = SpellbookType.Paladin; break;
+                case 5: type = SpellbookType.DarkPaladin; break;
+                case 6: type = SpellbookType.Bard; break;
+                case 7: type = SpellbookType.Ninja; break;
+                case 8: type = SpellbookType.Samurai; break;
+                case 9: type = SpellbookType.Arcanist; break;
+                case 10: type = SpellbookType.Druid; break;
+                case 11: type = SpellbookType.Clerc; break;
+                case 12: type = SpellbookType.Magister; break;
+            }
 
 			Spellbook book = Spellbook.Find( from, -1, type );
 
@@ -150,53 +162,95 @@ namespace Server.Items
 
 		public static SpellbookType GetTypeForSpell( int spellID )
 		{
-			if ( spellID >= 0 && spellID < 64 )
-				return SpellbookType.Regular;
-			else if ( spellID >= 100 && spellID < 117 )
-				return SpellbookType.Necromancer;
-			else if ( spellID >= 200 && spellID < 210 )
-				return SpellbookType.Paladin;
-			else if( spellID >= 400 && spellID < 406 )
-				return SpellbookType.Samurai;
-			else if( spellID >= 500 && spellID < 508 )
-				return SpellbookType.Ninja;
-			else if ( spellID >= 600 && spellID < 617 )
-				return SpellbookType.Arcanist;
+            if (spellID >= 0 && spellID < 64)
+                return SpellbookType.Regular;
+            else if (spellID >= 100 && spellID < 117)
+                return SpellbookType.Necromancer;
+            else if (spellID >= 130 && spellID < 140)
+                return SpellbookType.Daemonic;
+            else if (spellID >= 200 && spellID < 210)
+                return SpellbookType.Paladin;
+            else if (spellID >= 220 && spellID < 230)
+                return SpellbookType.DarkPaladin;
+            else if (spellID >= 301 && spellID < 317)
+                return SpellbookType.Bard;
+            else if (spellID >= 400 && spellID < 406)
+                return SpellbookType.Samurai;
+            else if (spellID >= 500 && spellID < 508)
+                return SpellbookType.Ninja;
+            else if (spellID >= 600 && spellID < 616)
+                return SpellbookType.Arcanist;
+            else if (spellID >= 701 && spellID < 750)
+                return SpellbookType.Druid;
+            else if (spellID >= 801 && spellID < 826)
+                return SpellbookType.Clerc;
+            else if (spellID >= 901 && spellID < 911)
+                return SpellbookType.Magister;
 
-			return SpellbookType.Invalid;
+            return SpellbookType.Invalid;
 		}
 
-		public static Spellbook FindRegular( Mobile from )
-		{
-			return Find( from, -1, SpellbookType.Regular );
-		}
+        public static Spellbook FindRegular(Mobile from)
+        {
+            return Find(from, -1, SpellbookType.Regular);
+        }
 
-		public static Spellbook FindNecromancer( Mobile from )
-		{
-			return Find( from, -1, SpellbookType.Necromancer );
-		}
+        public static Spellbook FindNecromancer(Mobile from)
+        {
+            return Find(from, -1, SpellbookType.Necromancer);
+        }
 
-		public static Spellbook FindPaladin( Mobile from )
-		{
-			return Find( from, -1, SpellbookType.Paladin );
-		}
+        public static Spellbook FindDaemonic(Mobile from)
+        {
+            return Find(from, -1, SpellbookType.Daemonic);
+        }
 
-		public static Spellbook FindSamurai( Mobile from )
-		{
-			return Find( from, -1, SpellbookType.Samurai );
-		}
+        public static Spellbook FindPaladin(Mobile from)
+        {
+            return Find(from, -1, SpellbookType.Paladin);
+        }
 
-		public static Spellbook FindNinja( Mobile from )
-		{
-			return Find( from, -1, SpellbookType.Ninja );
-		}
+        public static Spellbook FindDarkPaladin(Mobile from)
+        {
+            return Find(from, -1, SpellbookType.DarkPaladin);
+        }
 
-		public static Spellbook FindArcanist( Mobile from )
-		{
-			return Find( from, -1, SpellbookType.Arcanist );
-		}
+        public static Spellbook FindBard(Mobile from)
+        {
+            return Find(from, -1, SpellbookType.Bard);
+        }
 
-		public static Spellbook Find( Mobile from, int spellID )
+        public static Spellbook FindSamurai(Mobile from)
+        {
+            return Find(from, -1, SpellbookType.Samurai);
+        }
+
+        public static Spellbook FindNinja(Mobile from)
+        {
+            return Find(from, -1, SpellbookType.Ninja);
+        }
+
+        public static Spellbook FindArcanist(Mobile from)
+        {
+            return Find(from, -1, SpellbookType.Arcanist);
+        }
+
+        public static Spellbook FindDruid(Mobile from)
+        {
+            return Find(from, -1, SpellbookType.Druid);
+        }
+
+        public static Spellbook FindClerc(Mobile from)
+        {
+            return Find(from, -1, SpellbookType.Clerc);
+        }
+
+        public static Spellbook FindMagister(Mobile from)
+        {
+            return Find(from, -1, SpellbookType.Magister);
+        }
+
+        public static Spellbook Find( Mobile from, int spellID )
 		{
 			return Find( from, spellID, GetTypeForSpell( spellID ) );
 		}

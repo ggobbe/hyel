@@ -289,4 +289,181 @@ namespace Server.Items
 			return true;
 		}
 	}
+    //Ajout cuir
+    [FlipableAttribute(0x1079, 0x1078)]
+    public class AmphibianHides : BaseHides, IScissorable
+    {
+        [Constructable]
+        public AmphibianHides() : this(1)
+        {
+        }
+
+        [Constructable]
+        public AmphibianHides(int amount)
+            : base(CraftResource.AmphibianLeather, amount)
+        {
+        }
+        public override int LabelNumber { get { return 1063602; } }
+        public AmphibianHides(Serial serial)
+            : base(serial)
+        {
+        }
+
+
+
+        public override void Serialize(GenericWriter writer)
+        {
+            base.Serialize(writer);
+
+            writer.Write((int)0); // version
+        }
+
+        public override void Deserialize(GenericReader reader)
+        {
+            base.Deserialize(reader);
+
+            int version = reader.ReadInt();
+        }
+
+        public bool Scissor(Mobile from, Scissors scissors)
+        {
+            if (Deleted || !from.CanSee(this)) return false;
+
+            base.ScissorHelper(from, new AmphibianLeather(), 1);
+
+            return true;
+        }
+    }
+    [FlipableAttribute(0x1079, 0x1078)]
+    public class DaemonHides : BaseHides, IScissorable
+    {
+        [Constructable]
+        public DaemonHides()
+            : this(1)
+        {
+        }
+
+        [Constructable]
+        public DaemonHides(int amount)
+            : base(CraftResource.DaemonLeather, amount)
+        {
+        }
+        public override int LabelNumber { get { return 1063607; } }
+        public DaemonHides(Serial serial)
+            : base(serial)
+        {
+        }
+
+
+
+        public override void Serialize(GenericWriter writer)
+        {
+            base.Serialize(writer);
+
+            writer.Write((int)0); // version
+        }
+
+        public override void Deserialize(GenericReader reader)
+        {
+            base.Deserialize(reader);
+
+            int version = reader.ReadInt();
+        }
+
+        public bool Scissor(Mobile from, Scissors scissors)
+        {
+            if (Deleted || !from.CanSee(this)) return false;
+
+            base.ScissorHelper(from, new DaemonLeather(), 1);
+
+            return true;
+        }
+    }
+    [FlipableAttribute(0x1079, 0x1078)]
+    public class DarkHides : BaseHides, IScissorable
+    {
+        [Constructable]
+        public DarkHides()
+            : this(1)
+        {
+        }
+
+        [Constructable]
+        public DarkHides(int amount)
+            : base(CraftResource.DarkLeather, amount)
+        {
+        }
+        public override int LabelNumber { get { return 1063612; } }
+        public DarkHides(Serial serial)
+            : base(serial)
+        {
+        }
+
+        public override void Serialize(GenericWriter writer)
+        {
+            base.Serialize(writer);
+
+            writer.Write((int)0); // version
+        }
+
+        public override void Deserialize(GenericReader reader)
+        {
+            base.Deserialize(reader);
+
+            int version = reader.ReadInt();
+        }
+
+        public bool Scissor(Mobile from, Scissors scissors)
+        {
+            if (Deleted || !from.CanSee(this)) return false;
+
+            base.ScissorHelper(from, new DarkLeather(), 1);
+
+            return true;
+        }
+    }
+
+    [FlipableAttribute(0x1079, 0x1078)]
+    public class ReptileHides : BaseHides, IScissorable
+    {
+        [Constructable]
+        public ReptileHides()
+            : this(1)
+        {
+        }
+
+        [Constructable]
+        public ReptileHides(int amount)
+            : base(CraftResource.ReptileLeather, amount)
+        {
+        }
+        public override int LabelNumber { get { return 1063617; } }
+        public ReptileHides(Serial serial)
+            : base(serial)
+        {
+        }
+
+        public override void Serialize(GenericWriter writer)
+        {
+            base.Serialize(writer);
+
+            writer.Write((int)0); // version
+        }
+
+        public override void Deserialize(GenericReader reader)
+        {
+            base.Deserialize(reader);
+
+            int version = reader.ReadInt();
+        }
+
+        public bool Scissor(Mobile from, Scissors scissors)
+        {
+            if (Deleted || !from.CanSee(this)) return false;
+
+            base.ScissorHelper(from, new ReptileLeather(), 1);
+
+            return true;
+        }
+    }
 }

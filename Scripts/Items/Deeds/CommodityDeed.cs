@@ -7,7 +7,7 @@ namespace Server.Items
 	public interface ICommodity /* added IsDeedable prop so expansion-based deedables can determine true/false */
 	{
 		int DescriptionNumber{ get; }
-		bool IsDeedable { get; }
+        bool IsDeedable { get; }
 	}
 
 	public class CommodityDeed : Item
@@ -125,7 +125,7 @@ namespace Server.Items
 		{
 			base.OnSingleClick( from );
 
-			if ( m_Commodity != null )
+            if ( m_Commodity != null )
 			{
 				string args;
 

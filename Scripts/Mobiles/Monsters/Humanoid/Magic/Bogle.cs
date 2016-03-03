@@ -33,7 +33,7 @@ namespace Server.Mobiles
 
 			VirtualArmor = 28;
 			PackItem( Loot.RandomWeapon() );
-			PackItem( new Bone() );
+			PackItem( new Bones() );
 		}
 
 		public override void GenerateLoot()

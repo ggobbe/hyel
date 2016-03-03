@@ -44,7 +44,7 @@ namespace Server.Mobiles
 
 			VirtualArmor = 32;
 
-			PackItem( new Bone() );
+			PackItem( new Bones() );
 			// TODO: Body parts
 		}
 
